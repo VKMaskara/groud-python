@@ -1,8 +1,34 @@
 # groud-python
--- REPOSITÓRIO ATIVIDADE FINAL (Python) --
+                                        -- REPOSITÓRIO ATIVIDADE FINAL (Python) --
+-------------------------------------------------------COLABORADORES--------------------------------------------------
 
+Cordenador(s): Vitor Kauê / Glauber
+Revisor(s):  Luiz Henrique / Luiz Carlos
+Login: Diego
+Menu: Edneusa
+Designer: Bruno
+Telas (inicio/Fim): Samara
 
+-----# JOGOS #----
+Jesse: Jogo do 21
+Ana: 
 
+-----# CALCULOS #----
+Gustavo Santos:
+Christian:
+
+-----# ESPORTE #----
+Gustavo:
+Vinicios:
+
+-----# FINANCEIRO #----
+Arthur Lima:
+Maycon: Imposto
+
+-----# OUTROS #----
+Rodrigo: Rotas de Filmes/Series
+Juliana:
+Kaique: IA de Estudos
                                                   SISTEMA DE NOMENCLATURA      
 -----------------------------------------------------------------------------------------------------------------------
 ## 🔑 Sistema de Nomenclatura Simplificado
