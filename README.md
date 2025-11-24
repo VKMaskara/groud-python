@@ -6,7 +6,7 @@ Cordenador(s): Vitor Kauê / Glauber
 Revisor(s):  Luiz Henrique / Luiz Carlos
 Login: Diego
 Menu: Edneusa
-Designer: Bruno
+Designer: Nicolas Breno
 Telas (inicio/Fim): Samara
 
 -----# JOGOS #----
