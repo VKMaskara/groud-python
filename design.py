@@ -145,8 +145,14 @@ def pergunta(texto):
 
 def pergunta_sim_nao(texto):
     """Input S/N padronizado."""
-    digitar(COR_PERGUNTA + f"{texto} (S/N):" + RESET, 0.01)
-    return input("> ").strip().upper()
+    while True:
+        digitar(COR_PERGUNTA + f"{texto} (S/N):" + RESET, 0.01)
+        resposta = input("> ").strip().upper()
+
+        if resposta in ("S", "N"):
+            return resposta
+        digitar("Entrada inválida! Digite apenas 'S' ou 'N'.\n", 0.01)
+
 
 
 # ============================================================
