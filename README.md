@@ -28,7 +28,7 @@ Vinnicios Ribeiro:
 Gustavo Valim: Torneio de Skate
 Vinicios Oliveira: Quiz do Corinthians
 Thiago: IMC
-Vinicios de Paula:
+Vinicios de Paula: Catalogo de Basquete
 
 -----# FINANCEIRO #----
 Arthur Lima:Bolsa de Valores
