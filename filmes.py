@@ -203,9 +203,9 @@ def buscar_filme(titulo_busca):
         info = dados[resultado]
         design.titulo_secao(f"informações sobre: {resultado}", design.COR_INFO)
         
-        design.container(f"📊 Nota: {info['Nota']}/10", design.COR_BRANCO, False)
-        design.container(f"🎭 Gênero: {info['Genero']}", design.COR_BRANCO, False)
-        design.container(f"📖 Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
+        design.container(f" Nota: {info['Nota']}/10", design.COR_BRANCO, False)
+        design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
+        design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
         return True
         
     elif resultado:
@@ -221,18 +221,18 @@ def buscar_filme(titulo_busca):
             if escolha == 'S':
                 info = dados[resultado[0]]
                 design.titulo_secao(f"informações sobre: {resultado[0]}", design.COR_INFO)
-                design.container(f"📊 Nota: {info['Nota']}/10", design.COR_BRANCO, False)
-                design.container(f"🎭 Gênero: {info['Genero']}", design.COR_BRANCO, False)
-                design.container(f"📖 Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
+                design.container(f" Nota: {info['Nota']}/10", design.COR_BRANCO, False)
+                design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
+                design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
         else:
             try:
                 escolha = int(design.pergunta(f"Digite o número do filme (1-{len(resultado)})"))
                 if 1 <= escolha <= len(resultado):
                     info = dados[resultado[escolha-1]]
                     design.titulo_secao(f"informações sobre: {resultado[escolha-1]}", design.COR_INFO)
-                    design.container(f"📊 Nota: {info['Nota']}/10", design.COR_BRANCO, False)
-                    design.container(f"🎭 Gênero: {info['Genero']}", design.COR_BRANCO, False)
-                    design.container(f"📖 Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
+                    design.container(f" Nota: {info['Nota']}/10", design.COR_BRANCO, False)
+                    design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
+                    design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
                 else:
                     design.anim_erro("Opção inválida!")
             except ValueError:
@@ -275,7 +275,7 @@ def filmes_por_genero(genero_busca):
     encontrados = False
     for filme, info in dados.items():
         if info['Genero'] == genero_escolhido:
-            design.container(f"🎬 {filme} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
+            design.container(f" {filme} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
             encontrados = True
     
     if not encontrados:
@@ -306,11 +306,11 @@ def menu_principal():
     while True:
         design.titulo_secao("catálogo de filmes", design.COR_TITULO)
         
-        design.digitar("1. 🔍 Buscar filme por título", 0.01)
-        design.digitar("2. 🎭 Listar filmes por gênero", 0.01)
-        design.digitar("3. 📋 Ver catálogo completo", 0.01)
-        design.digitar("4. 📚 Ver gêneros disponíveis", 0.01)
-        design.digitar("5. 🚪 Sair", 0.01)
+        design.digitar("1.  Buscar filme por título", 0.01)
+        design.digitar("2.  Listar filmes por gênero", 0.01)
+        design.digitar("3.  Ver catálogo completo", 0.01)
+        design.digitar("4.  Ver gêneros disponíveis", 0.01)
+        design.digitar("5.  Sair", 0.01)
         
         opcao = design.pergunta("Escolha uma opção (1-5)")
         
@@ -361,7 +361,6 @@ def menu_principal():
         elif opcao == '5':
             design.titulo_secao("obrigado por usar este programa", design.COR_SUCESSO)
             design.digitar("Desenvolvido por: Rodrigo Borges dos Santos", 0.03)
-            design.digitar("Até logo! 👋", 0.03)
             break
             
         else:
