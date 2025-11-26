@@ -7,7 +7,7 @@ Revisor(s):  Luiz Henrique / Luiz Carlos
 
 Login: Diego
 
-Menu: Edneusa
+Menu: Edneuza
 
 Designer: Nicolas Breno
 
@@ -15,24 +15,40 @@ Telas (inicio/Fim): Samara
 
 -----# JOGOS #----
 Jesse: Jogo do 21
-Ana: 
+Ana: Termo
+Renato: 
 
 -----# CALCULOS #----
 Gustavo Santos:
-Christian:
+Gustavo Silva: Calculo de Área
+Christian: Conversor de Medida
+Vinnicios Ribeiro:
 
 -----# ESPORTE #----
-Gustavo:
-Vinicios:
+Gustavo Valim: Torneio de Skate
+Vinicios Oliveira: Quiz do Corinthians
+Thiago: IMC
+Vinicios de Paula:
 
 -----# FINANCEIRO #----
-Arthur Lima:
+Arthur Lima:Bolsa de Valores
 Maycon: Imposto
+Mikaelly:
 
 -----# OUTROS #----
 Rodrigo: Rotas de Filmes/Series
-Juliana:
+Juliana: Verificador de Senha
 Kaique: IA de Estudos
+Camilly: Playlist 
+-----------------------------------------------------------------------------------------------------------------------
+                                Critérios Avaliativos Obrigatórios em todos os programas:
+-----------------------------------------------------------------------------------------------------------------------
+Cores (Iremos utilizar um módulo que está em desenvolvimento, logo será disponibilizado)
+Pelo menos uma biblioteca Python
+Tratamento de caracteres (Exemolo: Strip(), Upper(), Capitalize())
+Condição (If, Else ou While)
+Lista, Tupla ou dicionário
+Função
                                                   SISTEMA DE NOMENCLATURA      
 -----------------------------------------------------------------------------------------------------------------------
 ## 🔑 Sistema de Nomenclatura Simplificado
