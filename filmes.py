@@ -146,56 +146,55 @@ def normalizar_texto(texto):
     Normaliza o texto removendo acentos, caracteres especiais
     e convertendo para minúsculas
     """
-    """ Remove acentos """
     texto = unicodedata.normalize('NFKD', texto)
     texto = ''.join([c for c in texto if not unicodedata.combining(c)])
     
-    """ Remove caracteres especiais e converte para minúsculas """
     texto = ''.join(c for c in texto if c.isalnum() or c.isspace())
     return texto.lower().strip()
 
 def buscar_filme_por_titulo(titulo_busca):
-    """ Busca um filme pelo título com busca flexível """
     titulo_normalizado = normalizar_texto(titulo_busca)
     
-    """ Primeiro tenta busca exata """
     if titulo_busca in dados:
         return titulo_busca
     
-    """ Busca flexível """
     filmes_encontrados = []
     for titulo_filme in dados.keys():
         titulo_filme_normalizado = normalizar_texto(titulo_filme)
         
-        """ Verifica se o termo de busca está contido no título """
         if titulo_normalizado in titulo_filme_normalizado:
             filmes_encontrados.append(titulo_filme)
     
     return filmes_encontrados
 
-def buscar_genero_flexivel(genero_busca):
-    """ Busca gênero com correspondência flexível """
-    genero_normalizado = normalizar_texto(genero_busca)
-    generos_encontrados = []
+def obter_generos_numerados():
+    """Retorna lista de gêneros numerados para seleção"""
+    generos = sorted(set(info['Genero'] for info in dados.values()))
+    return generos
+
+def selecionar_genero_numerico():
+    """Permite ao usuário selecionar gênero por número"""
+    generos = obter_generos_numerados()
     
-    generos_disponiveis = set(info['Genero'] for info in dados.values())
+    design.titulo_secao("selecionar gênero", design.COR_INFO)
     
-    for genero in generos_disponiveis:
-        genero_normalizado_disponivel = normalizar_texto(genero)
-        
-        """ Verifica correspondência parcial """
-        if (genero_normalizado in genero_normalizado_disponivel or 
-            genero_normalizado_disponivel in genero_normalizado):
-            generos_encontrados.append(genero)
+    for i, genero in enumerate(generos, 1):
+        design.digitar(f"{i}. {genero}", 0.005)
     
-    return generos_encontrados
+    while True:
+        try:
+            escolha = int(design.pergunta(f"Digite o número do gênero (1-{len(generos)})"))
+            if 1 <= escolha <= len(generos):
+                return generos[escolha-1]
+            else:
+                design.anim_erro(f"Número inválido! Digite entre 1 e {len(generos)}")
+        except ValueError:
+            design.anim_erro("Digite apenas números!")
 
 def buscar_filme(titulo_busca):
-    """ Busca um filme específico pelo título com busca flexível """
     resultado = buscar_filme_por_titulo(titulo_busca)
     
     if isinstance(resultado, str):
-        """ Encontrou um filme exato """
         info = dados[resultado]
         design.titulo_secao(f"informações sobre: {resultado}", design.COR_INFO)
         
@@ -205,13 +204,11 @@ def buscar_filme(titulo_busca):
         return True
         
     elif resultado:
-        """ Encontrou múltiplos filmes """
         design.info(f"Encontrei {len(resultado)} filmes com '{titulo_busca}':")
         
         for i, filme in enumerate(resultado, 1):
-            design.digitar(f"{i}. {filme}", 0.01)
+            design.digitar(f"{i}. {filme}", 0.005)
         
-        """ Pergunta qual filme o usuário quer ver """
         if len(resultado) == 1:
             escolha = design.pergunta_sim_nao("Deseja ver detalhes deste filme")
             if escolha == 'S':
@@ -221,116 +218,97 @@ def buscar_filme(titulo_busca):
                 design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
                 design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
         else:
-            try:
-                escolha = int(design.pergunta(f"Digite o número do filme (1-{len(resultado)})"))
-                if 1 <= escolha <= len(resultado):
-                    info = dados[resultado[escolha-1]]
-                    design.titulo_secao(f"informações sobre: {resultado[escolha-1]}", design.COR_INFO)
-                    design.container(f" Nota: {info['Nota']}/10", design.COR_BRANCO, False)
-                    design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
-                    design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
-                else:
-                    design.anim_erro("Opção inválida!")
-            except ValueError:
-                design.anim_erro("Opção inválida!")
+            while True:
+                try:
+                    escolha = int(design.pergunta(f"Digite o número do filme (1-{len(resultado)})"))
+                    if 1 <= escolha <= len(resultado):
+                        info = dados[resultado[escolha-1]]
+                        design.titulo_secao(f"informações sobre: {resultado[escolha-1]}", design.COR_INFO)
+                        design.container(f" Nota: {info['Nota']}/10", design.COR_BRANCO, False)
+                        design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
+                        design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
+                        break
+                    else:
+                        design.anim_erro(f"Número inválido! Digite entre 1 e {len(resultado)}")
+                except ValueError:
+                    design.anim_erro("Digite apenas números!")
         return True
     else:
         design.anim_erro(f"Nenhum filme encontrado com '{titulo_busca}'")
         return False
 
-def filmes_por_genero(genero_busca):
-    """ Lista todos os filmes de um determinado gênero com busca flexível """
-    generos_encontrados = buscar_genero_flexivel(genero_busca)
+def filmes_por_genero():
+    """Lista filmes por gênero com seleção numérica"""
+    genero_escolhido = selecionar_genero_numerico()
     
-    if not generos_encontrados:
-        design.anim_erro(f"Nenhum gênero encontrado com '{genero_busca}'")
-        return False
-    
-    """ Se encontrou múltiplos gêneros, pergunta qual usar """
-    if len(generos_encontrados) > 1:
-        design.info(f"Encontrei {len(generos_encontrados)} gêneros com '{genero_busca}':")
-        for i, genero in enumerate(generos_encontrados, 1):
-            design.digitar(f"{i}. {genero}", 0.01)
-        
-        try:
-            escolha = int(design.pergunta(f"Digite o número do gênero (1-{len(generos_encontrados)})"))
-            if 1 <= escolha <= len(generos_encontrados):
-                genero_escolhido = generos_encontrados[escolha-1]
-            else:
-                design.anim_erro("Opção inválida! Usando o primeiro gênero.")
-                genero_escolhido = generos_encontrados[0]
-        except ValueError:
-            design.anim_erro("Opção inválida! Usando o primeiro gênero.")
-            genero_escolhido = generos_encontrados[0]
-    else:
-        genero_escolhido = generos_encontrados[0]
-    
-    """ Lista os filmes do gênero escolhido """
     design.titulo_secao(f"filmes do gênero: {genero_escolhido}", design.COR_INFO)
     
     encontrados = False
+    filmes_genero = []
+    
     for filme, info in dados.items():
         if info['Genero'] == genero_escolhido:
-            design.container(f" {filme} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
+            filmes_genero.append((filme, info))
             encontrados = True
     
     if not encontrados:
         design.anim_erro(f"Nenhum filme encontrado no gênero '{genero_escolhido}'")
         return False
     
+    for filme, info in filmes_genero:
+        design.container(f"🎬 {filme} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
+    
     return True
 
 def listar_todos_filmes():
-    """ Lista todos os filmes do catálogo """
     design.titulo_secao("catálogo completo de filmes", design.COR_INFO)
     
     for i, (filme, info) in enumerate(dados.items(), 1):
         design.container(f"{i:2d}. {filme} - {info['Genero']} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
 
-def listar_generos_disponiveis():
-    """ Lista todos os gêneros disponíveis no catálogo """
-    generos = set(info['Genero'] for info in dados.values())
-    design.titulo_secao("gêneros disponíveis", design.COR_INFO)
-    
-    for i, genero in enumerate(sorted(generos), 1):
-        design.container(f"{i}. {genero}", design.COR_BRANCO, False)
-    
-    return sorted(generos)
-
 def menu_principal():
-    """ Menu principal de interação com o usuário """
     while True:
         design.titulo_secao("catálogo de filmes", design.COR_TITULO)
         
-        design.digitar("1.  Buscar filme por título", 0.01)
-        design.digitar("2.  Listar filmes por gênero", 0.01)
-        design.digitar("3.  Ver catálogo completo", 0.01)
-        design.digitar("4.  Ver gêneros disponíveis", 0.01)
-        design.digitar("5.  Sair", 0.01)
+        design.digitar("1.  Buscar filme por título", 0.005)
+        design.digitar("2.  Listar filmes por gênero", 0.005)
+        design.digitar("3.  Ver catálogo completo", 0.005)
+        design.digitar("4.  Sair", 0.005)
         
-        opcao = design.pergunta("Escolha uma opção (1-5)")
+        while True:
+            opcao = design.pergunta("Escolha uma opção (1-4)")
+            
+            if opcao in ['1', '2', '3', '4']:
+                break
+            else:
+                design.anim_erro("Opção inválida! Tente novamente.")
         
         if opcao == '1':
             design.tela("buscar filme por título")
             design.titulo_secao("buscar filme", design.COR_INFO)
             
-            titulo = design.pergunta("Digite o título do filme")
+            while True:
+                titulo = design.pergunta("Digite o título do filme")
+                if titulo.strip():
+                    break
+                design.anim_erro("Título não pode estar vazio!")
+            
             buscar_filme(titulo)
             design.pergunta("Pressione Enter para continuar")
             design.tela("catálogo de filmes")
             
         elif opcao == '2':
             design.tela("listar filmes por gênero")
-            design.titulo_secao("filmes por gênero", design.COR_INFO)
-            
-            listar_generos_disponiveis()
-            genero_escolhido = design.pergunta("Digite o nome do gênero que deseja ver")
-            sucesso = filmes_por_genero(genero_escolhido)
+            sucesso = filmes_por_genero()
             
             if sucesso:
                 ver_detalhes = design.pergunta_sim_nao("Deseja ver detalhes de algum filme")
                 if ver_detalhes == 'S':
-                    titulo_filme = design.pergunta("Digite o título do filme")
+                    while True:
+                        titulo_filme = design.pergunta("Digite o título do filme")
+                        if titulo_filme.strip():
+                            break
+                        design.anim_erro("Título não pode estar vazio!")
                     buscar_filme(titulo_filme)
             
             design.pergunta("Pressione Enter para continuar")
@@ -342,30 +320,23 @@ def menu_principal():
             
             ver_detalhes = design.pergunta_sim_nao("Deseja ver detalhes de algum filme")
             if ver_detalhes == 'S':
-                titulo_filme = design.pergunta("Digite o título do filme")
+                while True:
+                    titulo_filme = design.pergunta("Digite o título do filme")
+                    if titulo_filme.strip():
+                        break
+                    design.anim_erro("Título não pode estar vazio!")
                 buscar_filme(titulo_filme)
             
             design.pergunta("Pressione Enter para continuar")
             design.tela("catálogo de filmes")
             
         elif opcao == '4':
-            design.tela("gêneros disponíveis")
-            listar_generos_disponiveis()
-            design.pergunta("Pressione Enter para continuar")
-            design.tela("catálogo de filmes")
-            
-        elif opcao == '5':
             design.titulo_secao("obrigado por usar este programa", design.COR_SUCESSO)
-            design.digitar("Desenvolvido por: Rodrigo Borges dos Santos", 0.03)
+            design.digitar("Desenvolvido por: Rodrigo Borges dos Santos", 0.02)
             break
-            
-        else:
-            design.anim_erro("Opção inválida! Tente novamente.")
-            design.pergunta("Pressione Enter para continuar")
-            design.tela("catálogo de filmes")
 
 """ Iniciar o programa """
 if __name__ == "__main__":
     design.tela("sistema de catálogo de filmes")
-    design.loading("Iniciando Programa", 2, 0.3)
+    design.loading("Iniciando Programa", 1, 0.2)
     menu_principal()
