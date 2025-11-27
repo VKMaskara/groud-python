@@ -256,7 +256,7 @@ def filmes_por_genero():
         return False
     
     for filme, info in filmes_genero:
-        design.container(f"🎬 {filme} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
+        design.container(f"🎬 {filme}  {info['Nota']}/10", design.COR_BRANCO, False)
     
     return True
 
@@ -264,7 +264,7 @@ def listar_todos_filmes():
     design.titulo_secao("catálogo completo de filmes", design.COR_INFO)
     
     for i, (filme, info) in enumerate(dados.items(), 1):
-        design.container(f"{i:2d}. {filme} - {info['Genero']} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
+        design.container(f"{i:2d}. {filme} - {info['Genero']}  {info['Nota']}/10", design.COR_BRANCO, False)
 
 def menu_principal():
     while True:
