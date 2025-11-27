@@ -1,13 +1,13 @@
-# ============================================================
+# ===========================================================
 # filmes.py — Catálogo de Filmes
-# ============================================================
+# ===========================================================
 # Feito por: Rodrigo Borges dos Santos
 
 import os
 import unicodedata
 import design
 
-# Dicionário com seleção de filmes
+""" Dicionário com seleção de filmes """
 dados = {
     'Transformers': {
         'Nota': 6.5,
@@ -146,39 +146,35 @@ def normalizar_texto(texto):
     Normaliza o texto removendo acentos, caracteres especiais
     e convertendo para minúsculas
     """
-    # Remove acentos
+    """ Remove acentos """
     texto = unicodedata.normalize('NFKD', texto)
     texto = ''.join([c for c in texto if not unicodedata.combining(c)])
     
-    # Remove caracteres especiais e converte para minúsculas
+    """ Remove caracteres especiais e converte para minúsculas """
     texto = ''.join(c for c in texto if c.isalnum() or c.isspace())
     return texto.lower().strip()
 
 def buscar_filme_por_titulo(titulo_busca):
-    """
-    Busca um filme pelo título com busca flexível
-    """
+    """ Busca um filme pelo título com busca flexível """
     titulo_normalizado = normalizar_texto(titulo_busca)
     
-    # Primeiro tenta busca exata
+    """ Primeiro tenta busca exata """
     if titulo_busca in dados:
         return titulo_busca
     
-    # Busca flexível
+    """ Busca flexível """
     filmes_encontrados = []
     for titulo_filme in dados.keys():
         titulo_filme_normalizado = normalizar_texto(titulo_filme)
         
-        # Verifica se o termo de busca está contido no título
+        """ Verifica se o termo de busca está contido no título """
         if titulo_normalizado in titulo_filme_normalizado:
             filmes_encontrados.append(titulo_filme)
     
     return filmes_encontrados
 
 def buscar_genero_flexivel(genero_busca):
-    """
-    Busca gênero com correspondência flexível
-    """
+    """ Busca gênero com correspondência flexível """
     genero_normalizado = normalizar_texto(genero_busca)
     generos_encontrados = []
     
@@ -187,7 +183,7 @@ def buscar_genero_flexivel(genero_busca):
     for genero in generos_disponiveis:
         genero_normalizado_disponivel = normalizar_texto(genero)
         
-        # Verifica correspondência parcial
+        """ Verifica correspondência parcial """
         if (genero_normalizado in genero_normalizado_disponivel or 
             genero_normalizado_disponivel in genero_normalizado):
             generos_encontrados.append(genero)
@@ -195,11 +191,11 @@ def buscar_genero_flexivel(genero_busca):
     return generos_encontrados
 
 def buscar_filme(titulo_busca):
-    """Busca um filme específico pelo título com busca flexível"""
+    """ Busca um filme específico pelo título com busca flexível """
     resultado = buscar_filme_por_titulo(titulo_busca)
     
     if isinstance(resultado, str):
-        # Encontrou um filme exato
+        """ Encontrou um filme exato """
         info = dados[resultado]
         design.titulo_secao(f"informações sobre: {resultado}", design.COR_INFO)
         
@@ -209,13 +205,13 @@ def buscar_filme(titulo_busca):
         return True
         
     elif resultado:
-        # Encontrou múltiplos filmes
+        """ Encontrou múltiplos filmes """
         design.info(f"Encontrei {len(resultado)} filmes com '{titulo_busca}':")
         
         for i, filme in enumerate(resultado, 1):
             design.digitar(f"{i}. {filme}", 0.01)
         
-        # Pergunta qual filme o usuário quer ver
+        """ Pergunta qual filme o usuário quer ver """
         if len(resultado) == 1:
             escolha = design.pergunta_sim_nao("Deseja ver detalhes deste filme")
             if escolha == 'S':
@@ -243,14 +239,14 @@ def buscar_filme(titulo_busca):
         return False
 
 def filmes_por_genero(genero_busca):
-    """Lista todos os filmes de um determinado gênero com busca flexível"""
+    """ Lista todos os filmes de um determinado gênero com busca flexível """
     generos_encontrados = buscar_genero_flexivel(genero_busca)
     
     if not generos_encontrados:
         design.anim_erro(f"Nenhum gênero encontrado com '{genero_busca}'")
         return False
     
-    # Se encontrou múltiplos gêneros, pergunta qual usar
+    """ Se encontrou múltiplos gêneros, pergunta qual usar """
     if len(generos_encontrados) > 1:
         design.info(f"Encontrei {len(generos_encontrados)} gêneros com '{genero_busca}':")
         for i, genero in enumerate(generos_encontrados, 1):
@@ -269,7 +265,7 @@ def filmes_por_genero(genero_busca):
     else:
         genero_escolhido = generos_encontrados[0]
     
-    # Lista os filmes do gênero escolhido
+    """ Lista os filmes do gênero escolhido """
     design.titulo_secao(f"filmes do gênero: {genero_escolhido}", design.COR_INFO)
     
     encontrados = False
@@ -285,14 +281,14 @@ def filmes_por_genero(genero_busca):
     return True
 
 def listar_todos_filmes():
-    """Lista todos os filmes do catálogo"""
+    """ Lista todos os filmes do catálogo """
     design.titulo_secao("catálogo completo de filmes", design.COR_INFO)
     
     for i, (filme, info) in enumerate(dados.items(), 1):
         design.container(f"{i:2d}. {filme} - {info['Genero']} ⭐ {info['Nota']}/10", design.COR_BRANCO, False)
 
 def listar_generos_disponiveis():
-    """Lista todos os gêneros disponíveis no catálogo"""
+    """ Lista todos os gêneros disponíveis no catálogo """
     generos = set(info['Genero'] for info in dados.values())
     design.titulo_secao("gêneros disponíveis", design.COR_INFO)
     
@@ -302,7 +298,7 @@ def listar_generos_disponiveis():
     return sorted(generos)
 
 def menu_principal():
-    """Menu principal de interação com o usuário"""
+    """ Menu principal de interação com o usuário """
     while True:
         design.titulo_secao("catálogo de filmes", design.COR_TITULO)
         
@@ -368,7 +364,7 @@ def menu_principal():
             design.pergunta("Pressione Enter para continuar")
             design.tela("catálogo de filmes")
 
-# Iniciar o programa
+""" Iniciar o programa """
 if __name__ == "__main__":
     design.tela("sistema de catálogo de filmes")
     design.loading("Iniciando Programa", 2, 0.3)
