@@ -64,14 +64,21 @@ for tentativa in range(1,6):
         break  
 
     
-    if tentativa[0] == palavra[0]: 
-        print(f"{green}{tentativa[0]}{reset}{tentativa[1:]}")
+    resultado = ""
 
-    else:
-        print(tentativa)
-    
+    for i in range(5):
+        if tentativa[i] == palavra[i]:
+            resultado += f"{green}{tentativa[i]}{reset}"
+        else:
+            resultado += tentativa[i]
 
-    
+    print(resultado)
+
+    for c in range(5):
+        if tentativa[c] in palavra[c]:
+            resultado += f"{yellow}{tentativa[c]}{reset}"
+        else:
+            resultado += tentativa[i]
 
 
 
