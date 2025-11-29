@@ -33,7 +33,7 @@ while True:
     opc = input("Escolha: ")
     if opc == "1":
         while True:
-            cadastro()  
+            cadastro()  # chama a função de cadastro
 
             resp = input('\nDeseja continuar no cadastro? [S/N] ').strip().upper()
 
@@ -42,7 +42,7 @@ while True:
                 resp = input('Deseja continuar no cadastro? [S/N] ').strip().upper()
 
             if resp == 'N':
-                break  
+                break  # sai do loop principal
 
         print("\nEncerrando...")
 
