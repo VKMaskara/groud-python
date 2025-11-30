@@ -1,17 +1,17 @@
-import os
-import design
+from design import limpar_tela
+from design import tela
+from design import pergunta
+from design import anim_sucesso
+from design import anim_erro
 import random
 competidores = {}
-def limpar():
-    print("\n" * 100)
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 def perfil():
-    limpar()
-    print("--- PERFIL DOS SKATISTAS ---\n")
+    limpar_tela()
+    tela("Perfil dos Skatistas")
 
     if not competidores:
-        print("Nenhum skatista foi cadastrado ainda.")
+        anim_erro("Nenhum skatista foi cadastrado ainda.")
         input("\nPressione ENTER para voltar...")
         return
 
@@ -23,16 +23,17 @@ def perfil():
         print(f"{i} - {nome}")
 
     # Escolha do usuário
-    try:
-        opc = int(input("\nDigite o número do skatista: "))
-        if opc < 1 or opc > len(nomes):
-            limpar()
-            print("Opção inválida!")
-            input("\nPressione ENTER para voltar...")
-            return
-    except ValueError:
-        limpar()
-        print("Entrada inválida!")
+    opc = input("\nDigite o número do skatista: ").strip()
+
+    if not opc.isdigit():
+        anim_erro("Você deve digitar apenas números!")
+        input("\nPressione ENTER para voltar...")
+        return
+
+    opc = int(opc)
+
+    if opc < 1 or opc > len(nomes):
+        anim_erro("Número fora da lista!")
         input("\nPressione ENTER para voltar...")
         return
 
@@ -40,20 +41,24 @@ def perfil():
     nome_escolhido = nomes[opc - 1]
     dados = competidores[nome_escolhido]
 
-    limpar()
-    print(f"--- PERFIL DE {nome_escolhido.upper()} ---\n")
+    limpar_tela()
+    tela(f"Perfil de {nome_escolhido}")
+
     print(f"Notas: {dados['notas']}")
-    print(f"Média: {dados['media']:.2f}")
+    print(f"Média final: {dados['media']:.2f}")
     print("-" * 30)
 
     input("\nPressione ENTER para voltar...")
 
 def cadastro():
-    limpar()
-    nome = input("\nNome do Skatista: ")
-    limpar()
-    manobras = int(input("Quantas manobras? "))
+    limpar_tela()
+    tela("Cadastro de Skatista")
+    nome = pergunta("Nome do skatista")
+    manobras = int(pergunta("Quantas manobras"))
+    limpar_tela()
     notas = []
+    anim_sucesso("Skatista cadastrado com sucesso!")
+
 
     for i in range(manobras):
         nota = int(random.random() * 10)
@@ -70,40 +75,54 @@ def cadastro():
     print(f"Média: {media:.2f}")
 
 def ranking():
-    limpar()
-    print("---RANKING FINAL---")
+    tela("Ranking Final")
+    
     ordem = sorted(competidores.items(), key=lambda x: x[1]['media'], reverse=True)
+
+    if not ordem:
+        anim_erro("Nenhum skatista cadastrado!")
+        input("\nPressione ENTER para voltar...")
+        return
+    
     for i, (nome, dados) in enumerate(ordem, 1):
-        print(f"{i}º - {nome} ({dados['media']:.2f})")
+        print(f"{i}º - {nome}: média {dados['media']:.2f}")
+    
+    input("\nPressione ENTER para voltar...")
+
 
 while True:
-    limpar()
-    print("---COMPETIÇÃO DE SKATE---\n\nOs jurados darão as notas para as manobras dos skatistas.\n\n1 - CADASTRAR SKATISTA\n2 - MOSTRAR RANKING\n3 - PERFIL DO SKATISTA\n4 - SAIR")
+    tela("COMPETIÇÃO DE SKATE")
 
-    opc = input("Escolha: ")
+    print("1 - Cadastrar skatista")
+    print("2 - Mostrar ranking")
+    print("3 - Perfil do skatista")
+    print("4 - Sair\n")
+
+    opc = pergunta("Escolha uma opção")  # <-- SOMENTE AQUI
+
     if opc == "1":
         while True:
-            cadastro()  # chama a função de cadastro
+            cadastro()
 
             resp = input('\nDeseja continuar no cadastro? [S/N] ').strip().upper()
 
             while resp not in ('S', 'N'):
-                print("\nResposta inválida. Tente novamente.")
+                anim_erro("Resposta inválida! Tente novamente.")
                 resp = input('Deseja continuar no cadastro? [S/N] ').strip().upper()
 
             if resp == 'N':
-                break  # sai do loop principal
-
-        print("\nEncerrando...")
+                break
 
     elif opc == "2":
         ranking()
-        input("\nPressione enter para continuar...")  
 
     elif opc == "3":
         perfil()
+
     elif opc == "4":
-        limpar()
+        limpar_tela()
         break
+
     else:
-        print("Opção inválida")
+        anim_erro("Opção inválida!")
+        input("\nPressione ENTER...")
