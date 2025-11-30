@@ -149,7 +149,7 @@ def selecionar_genero_numerico():
     """Permite ao usuário selecionar gênero por número"""
     generos = obter_generos_numerados()
     
-    design.titulo_secao("selecionar gênero", design.COR_INFO)
+    design.titulo_secao("selecionar gênero", design.COR_INFO, False)
     
     for i, genero in enumerate(generos, 1):
         design.digitar(f"{i}. {genero}", 0.005)
@@ -168,7 +168,7 @@ def mostrar_detalhes_filme(titulo_filme):
     """Mostra os detalhes de um filme específico"""
     if titulo_filme in dados:
         info = dados[titulo_filme]
-        design.titulo_secao(f"informações sobre: {titulo_filme}", design.COR_INFO)
+        design.titulo_secao(f"informações sobre: {titulo_filme}", design.COR_INFO, False)
         design.container(f" Nota: {info['Nota']}/10", design.COR_BRANCO, False)
         design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
         design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
@@ -181,7 +181,7 @@ def filmes_por_genero():
     """Lista filmes por gênero com seleção numérica"""
     genero_escolhido = selecionar_genero_numerico()
     
-    design.titulo_secao(f"filmes do gênero: {genero_escolhido}", design.COR_INFO)
+    design.titulo_secao(f"filmes do gênero: {genero_escolhido}", design.COR_INFO, False)
     
     encontrados = False
     filmes_genero = []
@@ -217,7 +217,7 @@ def filmes_por_genero():
 
 def listar_todos_filmes():
     """Lista todos os filmes com opção de seleção por número"""
-    design.titulo_secao("catálogo completo de filmes", design.COR_INFO)
+    design.titulo_secao("catálogo completo de filmes", design.COR_INFO, False)
     
     filmes_lista = list(dados.items())
     
@@ -243,7 +243,7 @@ def listar_todos_filmes():
 
 def menu_principal():
     while True:
-        design.titulo_secao("catálogo de filmes", design.COR_TITULO)
+        design.titulo_secao("catálogo de filmes", design.COR_TITULO, False)
         
         design.digitar("1.  Listar filmes por gênero", 0.005)
         design.digitar("2.  Ver catálogo completo", 0.005)
@@ -270,7 +270,7 @@ def menu_principal():
             design.tela("catálogo de filmes")
             
         elif opcao == '3':
-            design.titulo_secao("obrigado por usar este programa", design.COR_SUCESSO)
+            design.titulo_secao("obrigado por usar este programa", design.COR_SUCESSO, False)
             design.digitar("Desenvolvido por: Rodrigo Borges dos Santos", 0.02)
             break
 
