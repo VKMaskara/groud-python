@@ -62,14 +62,14 @@ while True:
                 
                 # Garante que a opção seja válida
                 if menu not in [1, 2, 3]:
-                    limpar_tela()
                     anim_erro("Opção inválida!")
+                    limpar_tela()
                     continue
                 break
             except ValueError:
-                limpar_tela()
                 anim_erro("Dígito inválido! Digite apenas números.")
-
+                limpar_tela()
+                
     # -------------------------
     # OPÇÃO 1 → Adicionar gastos
     # -------------------------
