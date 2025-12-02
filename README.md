@@ -38,7 +38,7 @@ Mikaelly:
 -----# OUTROS #----
 Rodrigo: Rotas de Filmes/Series
 Juliana: Verificador de Senha
-Kaique: IA de Estudos
+Kaique: Organizador de tarefas 
 Camilly: Playlist 
 -----------------------------------------------------------------------------------------------------------------------
                                 Critérios Avaliativos Obrigatórios em todos os programas:
