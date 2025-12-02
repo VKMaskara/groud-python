@@ -98,6 +98,8 @@ def login():
 
     if cpf in usuarios and usuarios[cpf]["senha"] == senha:
         print(f"✔ Login bem-sucedido! Bem-vindo, {usuarios[cpf]['nome']}!")
+        from menu_principal import main
+        main()
     else:
         print("❌ CPF ou senha incorretos.")
 
@@ -134,4 +136,8 @@ def main():
 
 
 if __name__ == "__main__":
+    main()
+
+if __name__ == "__main__":
+
     main()
