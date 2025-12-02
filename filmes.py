@@ -140,6 +140,40 @@ dados = {
     }
 }
 
+def menu_principal():
+    """ Lista as opções inciais de um menu """
+    while True:
+        design.titulo_secao("catálogo de filmes", design.COR_TITULO, animar=False)
+        
+        design.digitar("1.  Listar filmes por gênero", 0.005)
+        design.digitar("2.  Ver catálogo completo", 0.005)
+        design.digitar("3.  Sair", 0.005)
+        
+        while True:
+            opcao = design.pergunta("Escolha uma opção (1-3)")
+            
+            if opcao in ['1', '2', '3']:
+                break
+            else:
+                design.anim_erro("Opção inválida! Tente novamente.")
+        
+        if opcao == '1':
+            design.tela("listar filmes por gênero")
+            filmes_por_genero()
+            design.pergunta("Pressione Enter para continuar")
+            design.tela("catálogo de filmes")
+            
+        elif opcao == '2':
+            design.tela("catálogo completo")
+            listar_todos_filmes()
+            design.pergunta("Pressione Enter para continuar")
+            design.tela("catálogo de filmes")
+            
+        elif opcao == '3':
+            design.titulo_secao("obrigado por usar este programa", design.COR_SUCESSO, animar=False)
+            design.digitar("Desenvolvido por: Rodrigo Borges dos Santos", 0.02)
+            break
+
 def obter_generos_numerados():
     """Retorna lista de gêneros numerados para seleção"""
     generos = sorted(set(info['Genero'] for info in dados.values()))
@@ -149,7 +183,7 @@ def selecionar_genero_numerico():
     """Permite ao usuário selecionar gênero por número"""
     generos = obter_generos_numerados()
     
-    design.titulo_secao("selecionar gênero", design.COR_INFO, False)
+    design.titulo_secao("selecionar gênero", design.COR_INFO, animar=False)
     
     for i, genero in enumerate(generos, 1):
         design.digitar(f"{i}. {genero}", 0.005)
@@ -165,10 +199,10 @@ def selecionar_genero_numerico():
             design.anim_erro("Digite apenas números!")
 
 def mostrar_detalhes_filme(titulo_filme):
-    """Mostra os detalhes de um filme específico"""
+    """ Mostra os detalhes de um filme específico """
     if titulo_filme in dados:
         info = dados[titulo_filme]
-        design.titulo_secao(f"informações sobre: {titulo_filme}", design.COR_INFO, False)
+        design.titulo_secao(f"informações sobre: {titulo_filme}", design.COR_INFO, animar=False)
         design.container(f" Nota: {info['Nota']}/10", design.COR_BRANCO, False)
         design.container(f" Gênero: {info['Genero']}", design.COR_BRANCO, False)
         design.container(f" Sinopse: {info['Sinopse']}", design.COR_BRANCO, False)
@@ -178,10 +212,10 @@ def mostrar_detalhes_filme(titulo_filme):
         return False
 
 def filmes_por_genero():
-    """Lista filmes por gênero com seleção numérica"""
+    """ Lista filmes por gênero com seleção numérica """
     genero_escolhido = selecionar_genero_numerico()
     
-    design.titulo_secao(f"filmes do gênero: {genero_escolhido}", design.COR_INFO, False)
+    design.titulo_secao(f"filmes do gênero: {genero_escolhido}", design.COR_INFO, animar=False)
     
     encontrados = False
     filmes_genero = []
@@ -216,8 +250,8 @@ def filmes_por_genero():
     return True
 
 def listar_todos_filmes():
-    """Lista todos os filmes com opção de seleção por número"""
-    design.titulo_secao("catálogo completo de filmes", design.COR_INFO, False)
+    """ Lista todos os filmes com opção de seleção por número """
+    design.titulo_secao("catálogo completo de filmes", design.COR_INFO, animar=False)
     
     filmes_lista = list(dados.items())
     
@@ -240,39 +274,6 @@ def listar_todos_filmes():
             design.anim_erro("Digite apenas números!")
     
     return True
-
-def menu_principal():
-    while True:
-        design.titulo_secao("catálogo de filmes", design.COR_TITULO, False)
-        
-        design.digitar("1.  Listar filmes por gênero", 0.005)
-        design.digitar("2.  Ver catálogo completo", 0.005)
-        design.digitar("3.  Sair", 0.005)
-        
-        while True:
-            opcao = design.pergunta("Escolha uma opção (1-3)")
-            
-            if opcao in ['1', '2', '3']:
-                break
-            else:
-                design.anim_erro("Opção inválida! Tente novamente.")
-        
-        if opcao == '1':
-            design.tela("listar filmes por gênero")
-            filmes_por_genero()
-            design.pergunta("Pressione Enter para continuar")
-            design.tela("catálogo de filmes")
-            
-        elif opcao == '2':
-            design.tela("catálogo completo")
-            listar_todos_filmes()
-            design.pergunta("Pressione Enter para continuar")
-            design.tela("catálogo de filmes")
-            
-        elif opcao == '3':
-            design.titulo_secao("obrigado por usar este programa", design.COR_SUCESSO, False)
-            design.digitar("Desenvolvido por: Rodrigo Borges dos Santos", 0.02)
-            break
 
 """ Iniciar o programa """
 if __name__ == "__main__":
