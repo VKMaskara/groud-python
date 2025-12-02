@@ -11,4 +11,5 @@ design.container("Toque qualquer tecla para continuar") #texto instruindo o usua
 
 design.limpar_tela() #função que limpa a tela
 
-#falta a função para levar ate a tela login
+from login import main #importa a tela de login
+main() #função que leva para a tela de login
