@@ -3,7 +3,7 @@
 # ===========================================================
 # Feito por: Rodrigo Borges dos Santos
 
-import os
+""" Importa o desing de outro programa """
 import design
 
 """ Dicionário com seleção de filmes """
@@ -143,6 +143,7 @@ dados = {
 def menu_principal():
     """ Lista as opções inciais de um menu """
     while True:
+        design.limpar_tela()
         design.titulo_secao("catálogo de filmes", design.COR_TITULO, animar=False)
         
         design.digitar("1.  Listar filmes por gênero", 0.005)
@@ -158,18 +159,21 @@ def menu_principal():
                 design.anim_erro("Opção inválida! Tente novamente.")
         
         if opcao == '1':
+            design.limpar_tela()
             design.tela("listar filmes por gênero")
             filmes_por_genero()
             design.pergunta("Pressione Enter para continuar")
             design.tela("catálogo de filmes")
             
         elif opcao == '2':
+            design.limpar_tela()
             design.tela("catálogo completo")
             listar_todos_filmes()
             design.pergunta("Pressione Enter para continuar")
             design.tela("catálogo de filmes")
             
         elif opcao == '3':
+            design.limpar_tela()
             design.titulo_secao("obrigado por usar este programa", design.COR_SUCESSO, animar=False)
             design.digitar("Desenvolvido por: Rodrigo Borges dos Santos", 0.02)
             break
@@ -237,6 +241,7 @@ def filmes_por_genero():
         try:
             escolha = int(design.pergunta(f"Digite o número do filme para ver detalhes (1-{len(filmes_genero)}) ou 0 para voltar"))
             if escolha == 0:
+                design.limpar_tela()
                 break
             elif 1 <= escolha <= len(filmes_genero):
                 filme_selecionado = filmes_genero[escolha-1][0]
@@ -263,6 +268,7 @@ def listar_todos_filmes():
         try:
             escolha = int(design.pergunta(f"Digite o número do filme para ver detalhes (1-{len(filmes_lista)}) ou 0 para voltar"))
             if escolha == 0:
+                design.limpar_tela()
                 break
             elif 1 <= escolha <= len(filmes_lista):
                 filme_selecionado = filmes_lista[escolha-1][0]
@@ -277,6 +283,7 @@ def listar_todos_filmes():
 
 """ Iniciar o programa """
 if __name__ == "__main__":
+    design.limpar_tela()
     design.tela("sistema de catálogo de filmes")
     design.loading("Iniciando Programa", 1, 0.2)
     menu_principal()
