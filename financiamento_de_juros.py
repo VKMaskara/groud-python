@@ -3,12 +3,13 @@
 import time #importando tempo (para pequenas pausas)
 import design
 
-design.limpar_tela()  #Limpa a tela no início do programa
+
 
 Lista = [] #Para guardar os cálculos feitos (histórico)
 
 while True: #Inicia um loop
     
+    design.limpar_tela()  #Limpa a tela 
     #Tela de menu principal
    # print("\n=== SIMULADOR DE FINANCIAMENTO COM JUROS SIMPLES ===")
     design.titulo_secao("SIMULADOR DE FINANCIAMENTO COM JUROS SIMPLES") 
@@ -26,7 +27,22 @@ while True: #Inicia um loop
     elif opcao == "2":
         print("\n---Histórico de cálculos---")
         print("-----------------------")
-        print(f'"Total de cálculos realizados: {len(Lista)}"')  #Mostra o total de cálculos realizados (tamanho da lista)
+        print(f'"Total de cálculos realizados: {len(Lista)}"')
+
+        # Mostrar histórico completo
+        if len(Lista) == 0:
+            print("Nenhum cálculo ainda.")
+        else:
+            for i, item in enumerate(Lista, start=1):
+                print(f"\nRegistro {i}:")
+                print(" Capital:", item["Capital"])
+                print(" Taxa:", item["Taxa"])
+                print(" Tempo:", item["Tempo"])
+                print(" Juros:", item["Juros"])
+                print(" Total:", item["Total"])
+
+        input("\nPressione ENTER para voltar ao menu...")
+        continue   
     elif opcao == "3":
         print("\n---Saindo do programa---")
         print("-----------------------")
@@ -56,6 +72,7 @@ while True: #Inicia um loop
 
     print(f"Juros: R$ {juros:.2f}")  # mostra os juros calculados, com 2 casas decimais
     print(f"Total: R$ {total:.2f}")  # mostra o valor total a pagar, com 2 casas decimais
+    input("\nPressione ENTER para voltar ao menu...")
 
     #--Salvar no histórico--
     Lista.append({  # adiciona um registro ao histórico (lista de dicionários) #.append adiciona o item ao final da lista
