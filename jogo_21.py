@@ -1,55 +1,38 @@
-import random 
-import time
+
 import os
+import time
 import sys
+import random
+import design
 
+# ============================================================
+# 🎨 PALETA DE CORES (ANSI)
+# ============================================================
 
-# DEFINDOS AS FUNÇÕES DO PROGRAMA
+RESET = "\033[0m"
 
-def limpar_tela(): # Função para limpar a tela
-    os.system('cls')
-    
-
-def tem():
-     time.sleep(3)
-
-def tempo():
-    time.sleep(2.1)
-
-
-def Menu(): # Função para exibir o menu inicial
-    print(100*('-'))
-    print('BEM-VINDO AO JOGO '.center(100))
-    print(100*('-'))
-    tempo()
-    limpar_tela()
-    print("\nIniciando o jogo...")
-    tempo()
-    limpar_tela()
-    print("\nBoa sorte!")
-    tempo()
-    limpar_tela()
-
-def fim():
-    print('\n')
-    print('OBRIGADO POR JOGAR O 21 ')
-    time.sleep(3)
-    limpar_tela()
-    print('\n')
-    print('ATÉ A PRÓXIMA !!! 😎😎 ')
-    time.sleep(3)
-    limpar_tela()
-    print('\n')
-    print('PROGRAMA ENCERANDO ............')
-    time.sleep(3)
-    limpar_tela()
-     
+COR_TITULO   = "\033[36m"  # Ciano (títulos principais)
+COR_PERGUNTA = "\033[33m"  # Amarelo (inputs)
+COR_INFO     = "\033[35m"  # Magenta (informações)
+COR_SUCESSO  = "\033[32m"  # Verde
+COR_ERRO     = "\033[31m"  # Vermelho
+COR_BRANCO   = "\033[37m"  # Branco (padrão de containers)
 
 
 # INICIO DO PROGRAMA 
+design.limpar_tela()
+design.loading('CARREGANDO')
+design.limpar_tela()
 
 
-limpar_tela()
+design.limpar_tela()
+design.titulo_secao('BEM-VINDO A DIVERSÃO DO MEGA 21  😎😎')
+design.limpar_tela()
+ 
+
+design.limpar_tela()
+design.titulo_secao('AGUARDE O SEU JOGO DE 21 ESTÁ CARREGANDO 😎😎')
+design.limpar_tela()
 
 def pegar_carta(): # Função para pegar uma carta aleatória entre 1 e 11
     return random.randint(1, 11) # Retorna um número aleatório entre 1 e 11
@@ -58,46 +41,49 @@ def mostrar_maos(jogador, computador, revelar=False): # Função para mostrar as
     print(f"\nmão do usuário: {jogador} (total: {sum(jogador)})") # Mostra a mão do usuario e o total
     if revelar: # Se revelar for True, mostra a mão completa do computador
         print(f"Mão do sistema: {computador} (total: {sum(computador)})") # Mostra a mão do computador e o total
+        
     else:
         print(f"Mão do sistema: [{computador[0]}, ? ]") # Mostra apenas a primeira carta do computador
-
-
-
-        
+       
+    
 jogador = [pegar_carta(), pegar_carta()] # Mão inicial do jogador com duas cartas
 computador = [pegar_carta(), pegar_carta()] # Mão inicial do computador com duas cartas
 
 while True: # Loop principal do jogo
-    Menu() # CHAMANDO A FUNÇÃO DA TELA INICIAL 
     mostrar_maos(jogador, computador) # Mostra as mãos do jogador e do computador
 
     if sum(jogador) > 21: # Verifica se o jogador estourou
             print('\n')
-            print("\n Você estourou! Perdeu. 🤡🤡 ")
-        
- 
-    escolha = input("\n DESEJA MAIS UMA CARTA ?? (s/n): ").lower().strip() # Pergunta ao jogador se quer mais uma carta
-    limpar_tela()
+            design.anim_erro('VOCÊ PERDEUUUUUUU !!! 🤡🤡')
 
+      
+    print('\n')
+    escolha = input(COR_PERGUNTA +"\n DESEJA MAIS UMA CARTA ?? (SIM/S) (NÃO/N): " + RESET).lower().strip() # Pergunta ao jogador se quer mais uma carta
+    print('\n')
+   
+  
     if escolha == "s": # Se o jogador escolher 's', pega mais uma carta
             jogador.append(pegar_carta())
 
      
     elif escolha == "n":
-         fim()
+         design.limpar_tela()
+         print('OBRIGADO POR JOGAR 21  😎')
+         time.sleep(3)
+         design.limpar_tela()
+         print('ATÉ A PRÓXIMA !!!')
+         time.sleep(3)
+         design.limpar_tela()
          sys.exit()
        
-       
- 
+
     elif escolha != "s":
-         print('POR FAVOR USE (s) PARA CONTINUAR JOGANDO OU (n) PARA ENCERRAR O JOGO')
-         tem()
-         limpar_tela()
+         print(COR_INFO +'POR FAVOR USE (s) PARA CONTINUAR JOGANDO OU (n) PARA ENCERRAR O JOGO' + RESET)
+         time.sleep(3.0)
+         design.limpar_tela()
          continue
          
 
-
-    
 
     # turno do computadort
     while sum(computador) < 17: # O computador continua pegando cartas enquanto a soma for menor que 17
@@ -109,19 +95,22 @@ while True: # Loop principal do jogo
     total_c = sum(computador) # Calcula o total do computador
 
     if total_c > 21: # Verifica se o computador estourou
-        print(" O computador estourou!,  Você venceu! 😝😝😝😝😝😝😝😝")
-        tem()
-        limpar_tela()
+       design.anim_sucesso('VOCÊ GANHOOOOUUUU  😎😎😎!!!!!!!')
+     
     elif total_j > total_c: # Verifica quem tem o maior total
-        print("\n🎉 Você venceu! 🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩🤩")
-        tem()
-        limpar_tela()
+        design.anim_sucesso('VOCÊ GANHOOOOUUUU  😎😎😎 !!!!!!!')
+        time.sleep(3)
+        
+        
+       
     elif total_j < total_c: # Verifica quem tem o maior total
-        print("\n❌ Você perdeu! 🤡🤡🤡🤡🤡🤡🤡🤡")
-        tem()
-        limpar_tela()
+        design.anim_erro('VOCÊ PERDEUUUU  🤡🤡🤡🤡!!!')
+        time.sleep(3)
+       
+        
+        
     else: # Se os totais forem iguais, é um empate
-        print("\n🤝 Empate! 😎😎😎😎😎 ")
-        tem()
-        limpar_tela()
+        print( COR_PERGUNTA+"\n🤝 Empate! 🤝🤝🤝🤝🤝" + RESET) 
+        continue
+     
        
