@@ -1,6 +1,6 @@
 import os
 import design
-import modulo_imc_
+
 
 from design import (
     titulo_secao,
@@ -13,6 +13,21 @@ from design import (
     tela,
     loading
 )
+
+
+def calcular_imc(peso, altura):
+    return peso / (altura ** 2)
+
+def classificar_imc(imc):
+    if imc < 18.5:
+        return "Abaixo do peso"
+    elif 18.5 <= imc < 25:
+        return "Peso normal"
+    elif 25 <= imc < 30:
+        return "Sobrepeso"
+    else:
+        return "Obesidade"
+
 
 
 # ============================================================
@@ -59,8 +74,8 @@ def cadastrar_atleta():
     peso = validar_float("Peso (kg)")
     altura = validar_float("Altura (m)")
 
-    imc = modulo_imc_.calcular_imc(peso, altura)
-    classificacao = modulo_imc_.classificar_imc(imc)
+    imc = calcular_imc(peso, altura)
+    classificacao = classificar_imc(imc)
 
     atleta = {
         "nome": nome,
@@ -110,7 +125,7 @@ def mostrar_menu():
     titulo_secao("MENU PRINCIPAL", animar=False)
 
     container("1 - Cadastrar atleta", animado=False)
-    container("2 - Listar atletas", animado=False)
+    container("2 - Lista de atletas", animado=False)
     container("3 - Sair", animado=False)
 
     print()
