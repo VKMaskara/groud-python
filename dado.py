@@ -1,6 +1,11 @@
 import random  #importa a biblioteca random para gerar números aleatórios
 import os      #importa a biblioteca os para comandos do sistema operacional
-#import design    #importa o módulo design para elementos visuais (assumindo que exista)
+
+import design    #importa o módulo design para elementos visuais (assumindo que exista)
+
+design.titulo_secao("🎲🎲🎲JOGO DOS DADOS🎲🎲🎲")  #chama a função titulo_secao do módulo design para mostrar o título do jogo
+design.loading(design.COR_SUCESSO + "🎲🎲Iniciando o Jogo dos Dados🎲🎲", ciclos=2, tempo=0.3 )  #chama a função loading do módulo design para animação de carregamento
+
 
 def limpar_tela():  #função para limpar a tela do terminal
    # """Limpa a tela do terminal"""
@@ -45,6 +50,7 @@ def jogar(): #função principal do jogo
     # Jogador 2
     limpar_tela() #limpa a tela antes do jogador 2
     print("🎲 Agora é a vez do Jogador 2! 🎲") #mensagen proximo jogar
+    print("=" * 40) #separador
     print(" 👤 Jogador 2 - Seus lançamentos:") #jogador 2 lançar o dado
     print("-" * 30)#separador
     for i in range(numero_jogadas): #loop para o número de jogadas
@@ -76,6 +82,7 @@ def jogar(): #função principal do jogo
         print("🤝 EMPATE! 🤝") #mensagem de empate
 
     print( "Obrigado por jogar! 🎲") #mensagem de agradecimento
+    print("=" * 40) #separador
     input("Pressione Enter para voltar ao menu...")#espera o jogador pressionar enter para voltar ao menu
     limpar_tela()#limpa a tela
 
@@ -85,10 +92,15 @@ def instrucoes(): #mostra as instruções do jogo
     print("📖 INSTRUÇÕES DO JOGO 📖")#início das instruções como jogar
     print("=" * 40)#separador
     print("- Cada jogador lança o dado o mesmo número de vezes")#explicação do jogo
+    print("=" * 40)#separado
     print("- A soma total decide o vencedor")#explicação que soma decide o vencedor
+    print("=" * 40)#separador
     print("- 6 é o maior número! Ganha destaque especial ⭐")#dado numero 6 maior ganha destaque especial
+    print("=" * 40)#separador
     print("- Pressione Enter entre cada lançamento")#explicação para pressionar enter entre cada lançamento
+    print("=" * 40)#separado
     print( "✅ Boa sorte!")#mensagem de boa sorte
+    print("=" * 40)#separado
     input("Pressione Enter para voltar...")#espera o jogador pressionar enter para voltar ao menu
 
 def tela_inicio(): #função para mostrar o menu inicial
@@ -117,14 +129,13 @@ def tela_inicio(): #função para mostrar o menu inicial
                 
         except KeyboardInterrupt:#|captura interrupção do teclado (Ctrl+C)
             print( "🤗 Saindo...")#mensagem de saida do jogo
-            break#sai do loop e termina o programa
+            break#sai do loop 
 
-# Inicia o programa
 if __name__ == "__main__":#verifica se o script está sendo executado diretamente
     tela_inicio()#chama a função tela_inicio para iniciar o jogo
     limpar_tela()#limpa a tela
     #design.rodape()  #chama a função rodape do módulo design para mostrar o rodapé (assumindo que exista)
-   # """ https://emojisparacopiar.com/#google_vignette""" #retirada dos emojis do site                 
+    """ https://emojisparacopiar.com/#google_vignette""" #retirada dos emojis do site                 
     """👨🏽‍💻Renato de Oliveira👨🏽‍💻"""# Desenvolvedor Python
     
-    # Fim do programa
+    """Fim do programa"""
