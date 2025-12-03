@@ -1,8 +1,4 @@
-from design import limpar_tela
-from design import tela
-from design import pergunta
-from design import anim_sucesso
-from design import anim_erro
+from design import *
 import random
 competidores = {}
 
@@ -91,7 +87,7 @@ def ranking():
 
 
 while True:
-    tela("COMPETIÇÃO DE SKATE")
+    titulo_secao("COMPETIÇÃO DE SKATE", animar=False)
 
     print("1 - Cadastrar skatista")
     print("2 - Mostrar ranking")
