@@ -54,9 +54,9 @@ def verificar_senha(password):  # Define a função verificar_senha que recebe u
         return False, erros                     # Retorna False e a lista de erros se houver
 
     if len(password) >= 10:                     # Verifica se a senha tem 10 ou mais caracteres
-        return True, [design.COR_SUCESSO + "Senha forte!"]  # Retorna True e mensagem de sucesso para senha forte
+        return True, [design.COR_SUCESSO + "Senha forte!" + design.RESET]  # Retorna True e mensagem de sucesso para senha forte
     else:                                       # Se a senha tiver entre 6 e 9 caracteres
-        return True, [design.COR_PERGUNTA + "Senha média."]  # Retorna True e mensagem de aviso para senha média
+        return True, [design.COR_PERGUNTA + "Senha média." + design.RESET]  # Retorna True e mensagem de aviso para senha média
 
 print("=== Criador de Senha ===")  # Imprime título do criador de senha
 
@@ -77,7 +77,7 @@ while True:                # Inicia um loop infinito
         continuar = input("Deseja criar outra senha? (s/n): ").strip()  # Pergunta ao usuário se deseja criar outra senha
         
         while continuar.lower() not in ['s', 'n']:
-            continuar = input(design.COR_ERRO+"Resposta inválida. Deseja criar outra senha? (s/n): ").strip()
+            continuar = input(design.COR_ERRO+"Resposta inválida. Deseja criar outra senha? (s/n): " + design.RESET).strip()
 
         if continuar.lower() == 's':      # Verifica se a resposta não é 's'
             design.limpar_tela()          # Limpa a tela
