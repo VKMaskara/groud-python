@@ -41,17 +41,17 @@ atletas = []
 # ============================================================
 def validar_nome():
     while True:
-        nome = pergunta("Nome do atleta").title()
+        nome = pergunta("Nome do atleta").strip().title()
 
-        if nome == "":
-            anim_erro("Nome não pode ser vazio!")
-        else:
+        if nome.replace(" ", "").isalpha():
             return nome
+        else:
+            anim_erro("O nome deve conter apenas letras e espaços!")
 
 
 def validar_float(msg):
     while True:
-        valor = pergunta(msg)
+        valor = pergunta(msg).replace(",", ".")  # permite vírgula
 
         try:
             valor = float(valor)
@@ -148,3 +148,4 @@ while True:
 
     elif opcao == "3":
         tela("SAINDO DO SISTEMA")
+        break   # ✔ AGORA O PROGRAMA FINALIZA CORRETAMENTE
