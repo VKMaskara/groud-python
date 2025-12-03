@@ -1,10 +1,10 @@
-# Trabalho final de python
-# Christian da Silva Pereira
-# Esse código consiste em transformar as unidades de medida de temperaturas.
-
 import os
 import time
 import design
+import locale  # Importando o módulo locale
+
+# Configura a localidade para o Brasil (onde usamos vírgula como separador decimal)
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 os.system('cls')
 
@@ -38,9 +38,13 @@ def escolher_unidade(mensagem):
 
 
 def ler_temperatura(mensagem):
-    """Garante que a pessoa digite apenas valores numéricos"""
+    """Garante que a pessoa digite apenas valores numéricos, aceitando vírgula."""
     while True:
-        valor = input(design.COR_PERGUNTA + mensagem)
+        valor = input(design.COR_PERGUNTA + mensagem).strip()
+
+        # Troca vírgula por ponto antes de tentar converter
+        valor = valor.replace(",", ".")
+
         try:
             return float(valor)
         except ValueError:
@@ -62,7 +66,7 @@ while True:
     )
 
     # escolha do usuário
-    escolha1 = escolher_unidade('\nQual temperatura você deseja converter -> (C), (F) ou (K) ? : ')
+    escolha1 = escolher_unidade('\nEscolha a temperatura que você deseja converter -> (C), (F) ou (K) ? : ')
     escolha2 = escolher_unidade('\nEm qual você quer transformar -> (C), (F) ou (K) ? : ')
 
     time.sleep(1)
@@ -71,24 +75,30 @@ while True:
     # Entrada de temperatura (VALIDADA)
     temperatura1 = ler_temperatura(f'\nLegal, vamos lá! Quantos graus {escolha1} você quer converter para {escolha2}? : ')
 
-    # Processamento das conversões
+    # Processamento das conversões e exibição com vírgula
     if escolha1 == 'C' and escolha2 == 'F':
-        print(design.COR_SUCESSO + f'\nResultado: {C_F(temperatura1):.2f} °F')
+        resultado = C_F(temperatura1)
+        print(design.COR_SUCESSO + f'\nResultado: {locale.format_string("%.2f", resultado)} °F')
 
     elif escolha1 == 'C' and escolha2 == 'K':
-        print(design.COR_SUCESSO + f'\nResultado: {C_K(temperatura1):.2f} °K')
+        resultado = C_K(temperatura1)
+        print(design.COR_SUCESSO + f'\nResultado: {locale.format_string("%.2f", resultado)} °K')
 
     elif escolha1 == 'F' and escolha2 == 'C':
-        print(design.COR_SUCESSO + f'\nResultado: {F_C(temperatura1):.2f} °C')
+        resultado = F_C(temperatura1)
+        print(design.COR_SUCESSO + f'\nResultado: {locale.format_string("%.2f", resultado)} °C')
 
     elif escolha1 == 'F' and escolha2 == 'K':
-        print(design.COR_SUCESSO + f'\nResultado: {F_K(temperatura1):.2f} °K')
+        resultado = F_K(temperatura1)
+        print(design.COR_SUCESSO + f'\nResultado: {locale.format_string("%.2f", resultado)} °K')
 
     elif escolha1 == 'K' and escolha2 == 'C':
-        print(design.COR_SUCESSO + f'\nResultado: {K_C(temperatura1):.2f} °C')
+        resultado = K_C(temperatura1)
+        print(design.COR_SUCESSO + f'\nResultado: {locale.format_string("%.2f", resultado)} °C')
 
     elif escolha1 == 'K' and escolha2 == 'F':
-        print(design.COR_SUCESSO + f'\nResultado: {K_F(temperatura1):.2f} °F')
+        resultado = K_F(temperatura1)
+        print(design.COR_SUCESSO + f'\nResultado: {locale.format_string("%.2f", resultado)} °F')
 
     else:
         print(design.COR_INFO + '\nAs unidades são iguais! Nada para converter.')
