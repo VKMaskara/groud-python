@@ -1,9 +1,13 @@
 import time
 import os
+import design
+ 
+
+design.limpar_tela()
 
 def menu_principal():
     while True:
-        print('\n=== MENU PRINCIPAL ===')
+        design.titulo_secao('=== MENU PRINCIPAL ===')
         print('1. Jogos')
         print('2. Cálculos')
         print('3. Esporte')
@@ -41,19 +45,30 @@ def menu_principal():
 def submenu_jogos():
     while True:
         print('\n--- SUBMENU JOGOS ---')
-        print('1. Jogo da Forca')
-        print('2. jogo da velha')
-        print('3. Pedra, Papel ou Tesoura')
+        print('1. Jogo do 21')
+        print('2. jogo_de_palavras')
+        print('3. dado')
+        print('4. competição_skate')
+        print('4. quiz_corinthians')
         print("0. Voltar")
 
         opcão = input('Escolha uma opção: ')
 
         if opcão == '1':
-            print('Jogo da Forca...')
-        elif opcão == "2":
-            print('Jogo da velha...')
-        elif opcão == "3":
-            print('Pedra, Papel ou Tesoura...')
+           from jogo_21 import main
+           main()
+        elif opcão == '2':
+            from jogo_de_palavras import main
+            main()
+        elif opcão == '3':
+            from dado import main
+            main()
+        elif opcão == '4':
+            from competição_skate import main
+            main()
+        elif opcão == '4':
+            from quiz_corinthians import main
+            main()
         elif opcão == "0":
             break
         else:
@@ -63,20 +78,23 @@ def submenu_jogos():
 def submenu_calculos():
     while True:
         print('\n--- SUBMENU CÁLCULOS ---')
-        print('1. Fatorial')
-        print('2. Subtração')
-        print('3. Multiplicação')
+        print('1. calculo_combustivel')
+        print('2. modulo_imc')
+        print('3. calculo_folha_de_pagamnento' )
         print('4. Divisão')
         print('0. Voltar')
 
         opc = input('Escolha uma opção: ')
 
         if opc == '1':
-            print('Fatorial...')
+          from calculo_combustivel import main
+          main()
         elif opc == '2':
-            print('subtração...')
+          from  modulo_imc import main
+          main()
         elif opc == '3':
-            print('multiplicação')
+           from calculo_folha_de_pagamento import main
+           main()
         elif opc == '4':
             print('divisão...')
         elif opc == '0':
@@ -88,14 +106,15 @@ def submenu_calculos():
 def submenu_esporte():
     while True:
         print('\n--- SUBMENU ESPORTE ---')
-        print('1.Truco')
+        print('1.programa_esporte.imc')
         print('2. Pife')
         print('0. Voltar')
 
         opc = input('Escolha uma opção: ')
 
         if opc == '1':
-            print('Mostrando Truco...')
+          from programa_esporte_imc import main
+          main()
         elif opc == '2':
             print('Mostrando Pife...')
         elif opc == "0":
@@ -107,16 +126,18 @@ def submenu_esporte():
 def submenu_financeiro():
     while True:
         print('\n--- SUBMENU FINANCEIRO ---')
-        print('1. Tabuada')
-        print('2. Calculadora de juros')
+        print('1. calculo_financas_pessoais')
+        print('2. financiamento_de_juros')
         print('0. Voltar')
 
         opc = input('Escolha uma opção: ')
 
         if opc == '1':
-            print('Convertendo moedas...')
+            from calculo_financas_pessoais import main
+            main()
         elif opc == '2':
-            print('Calculando juros...')
+            from financiamento_de_juros import main
+            main()
         elif opc == "0":
             break
         else:
@@ -126,7 +147,7 @@ def submenu_financeiro():
 def submenu_outro():
     while True:
         print('\n--- SUBMENU OUTRO ---')
-        print('1. Informações gerais')
+        print('1. ')
         print('2. Configurações')
         print( '0. Voltar')
 
@@ -142,5 +163,3 @@ def submenu_outro():
             print('Opção inválida!')
 
 
-# Executar o menu principal
-menu_principal()
