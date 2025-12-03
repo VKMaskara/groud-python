@@ -2,53 +2,65 @@
                                         -- REPOSITÓRIO ATIVIDADE FINAL (Python) --
 -------------------------------------------------------COLABORADORES--------------------------------------------------
 
-Cordenador(s): Vitor Kauê / Glauber
-Revisor(s):  Luiz Henrique / Luiz Carlos
+Coordenadores:
+Vitor Kauê
+Glauber Almeida
 
-Login: Diego
+Revisores:
+Luiz Carlos
+Luis Henrique
 
-Menu: Edneuza
+Login:
+Diego (Quase Finalizado)
 
-Designer: Nicolas Breno
+Menu:
+Edneuza
 
-Telas (inicio/Fim): Samara
+Design:
+Nicolas Breno (Finalizado)
 
------# JOGOS #----
-Jesse: Jogo do 21
-Ana: Termo
-Renato: 
+Telas (Início e Fim):
+Samara (Tela de inicio Finalizada, Tela de encerramento em andamento)
 
------# CALCULOS #----
-Gustavo Santos:
-Gustavo Silva: Calculo de Área
-Christian: Conversor de Medida
-Vinnicios Ribeiro:
+Programas de Jogos:
+Jessé: Jogo do 21
+Anna: Termo
+Renato: Jogo do dado
 
------# ESPORTE #----
+Programas de Cálculos:
+Gustavo Santos: Folha de pagamento
+Gustavo Silva: Cálculo de área e volume
+Christian: Conversor de medidas
+Vinnícius Ribeiro: Cálculo de combustível (Finalizado)
+
+Programas de Esportes:
 Gustavo Valim: Torneio de Skate
-Vinicios Oliveira: Quiz do Corinthians
-Thiago: IMC
-Vinicios de Paula: Catalogo de Basquete
+Vinícius Oliveira: Quiz do Corinthians (Finalizado)
+Thiago: IMC de Atletas (Finalizado)
+Vinícius de Paula: Catálogo de Basquete
 
------# FINANCEIRO #----
-Arthur Lima:Bolsa de Valores
-Maycon: Imposto
-Mikaelly:
+Programas Financeiros:
+Arthur Lima: Bolsa de valores
+Maycon: Cálculo de imposto
+Mikaelly:  Financiamento de juros simples
+Arthur Carvalho: ?
 
------# OUTROS #----
-Rodrigo: Rotas de Filmes/Series
-Juliana: Verificador de Senha
-Kaique: Organizador de tarefas 
-Camilly: Playlist 
+Outros Programas:
+Rodrigo: Avaliação de filmes (Finalizado)
+Juliana: Verificador de senhas (Finalizado)
+Kaique: Organizador de tarefas
+Camilly: Playlist musical
 -----------------------------------------------------------------------------------------------------------------------
                                 Critérios Avaliativos Obrigatórios em todos os programas:
 -----------------------------------------------------------------------------------------------------------------------
-Cores (Iremos utilizar um módulo que está em desenvolvimento, logo será disponibilizado)
+Cores (Iremos utilizar o módulo Design)
 Pelo menos uma biblioteca Python
 Tratamento de caracteres (Exemolo: Strip(), Upper(), Capitalize())
 Condição (If, Else ou While)
 Lista, Tupla ou dicionário
 Função
+Não deve ser criado módulos além do Design.py
+Todos os código devem ter comentários explicando suas funcionalidades(defs, while, etc)
                                                   SISTEMA DE NOMENCLATURA      
 -----------------------------------------------------------------------------------------------------------------------
 ## 🔑 Sistema de Nomenclatura Simplificado
