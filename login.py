@@ -1,219 +1,277 @@
-"""
-Desenvolvido por: Diego Teles
-"""
+# ============================================================
+# Importações
+# ============================================================
+import os
+import json
+import re
+import design
+from design import tela, pergunta, pergunta_sim_nao, anim_sucesso, anim_erro, info, container
 
-# ------------------------------------------------------------
-# Importações de módulos do Python e do sistema visual design.py
-# ------------------------------------------------------------
-import os           # Usado para verificar a existência de arquivos
-import json         # Usado para ler e escrever arquivos JSON
-import re           # Usado para validar formatos usando expressões regulares
-import design       # Importa todo o sistema de design (animações, cores, UI)
-from design import (
-    titulo_secao, 
-    container, 
-    pergunta, 
-    pergunta_sim_nao, 
-    anim_sucesso, 
-    anim_erro, 
-    info, 
-    tela, 
-    loading 
-)
-
-# Nome do arquivo que armazena os usuários registrados
-ARQUIVO_USUARIOS = "usuarios.json"
-
+ARQUIVO_USUARIOS = "usuarios.json"  # Arquivo de armazenamento
 
 # ============================================================
-# 🔄 Carregar usuários do JSON
+# Funções auxiliares
 # ============================================================
+
 def carregar_usuarios():
-    # Se o arquivo não existir, retorna um dicionário vazio
+    """Carrega usuários do JSON, retorna dicionário vazio se não existir ou erro."""
     if not os.path.exists(ARQUIVO_USUARIOS):
         return {}
-
     try:
-        # Abre o arquivo JSON em modo leitura
-        with open(ARQUIVO_USUARIOS, "r", encoding="utf-8") as arquivo:
-            # Converte o conteúdo do arquivo JSON para um dicionário Python
-            return json.load(arquivo)
+        with open(ARQUIVO_USUARIOS, "r", encoding="utf-8") as f:
+            return json.load(f)
     except (IOError, json.JSONDecodeError):
-        # Caso ocorra erro ao ler o arquivo, retorna dicionário vazio
         return {}
 
-
-# ============================================================
-# 💾 Salvar usuários
-# ============================================================
 def salvar_usuarios(usuarios):
+    """Salva dicionário de usuários no JSON."""
     try:
-        # Abre o arquivo em modo escrita
-        with open(ARQUIVO_USUARIOS, "w", encoding="utf-8") as arquivo:
-            # Salva o dicionário no formato JSON
-            json.dump(usuarios, arquivo, indent=4, ensure_ascii=False)
+        with open(ARQUIVO_USUARIOS, "w", encoding="utf-8") as f:
+            json.dump(usuarios, f, indent=4, ensure_ascii=False)
     except IOError:
-        # Se houver erro ao salvar, exibe animação de erro
-        design.anim_erro("Erro ao salvar usuários!")
+        anim_erro("Erro ao salvar usuários!")
 
+def validar_nome(nome):
+    """Valida se o nome contém apenas letras e espaços (sem números)."""
+    nome = nome.strip()
+    if any(c.isdigit() for c in nome):
+        return False
+    return bool(re.match(r"^[A-Za-zÀ-ÖØ-öø-ÿ ]+$", nome))
 
-# ============================================================
-# 🆔 Validação de CPF
-# ============================================================
 def validar_cpf(cpf_raw):
-    # Remove tudo que não for número
+    """Valida CPF (11 dígitos, dígitos verificadores corretos)."""
     cpf = re.sub(r"[^0-9]", "", cpf_raw)
-
-    # Regras básicas: deve ter 11 dígitos e não pode ter todos iguais
     if len(cpf) != 11 or cpf == cpf[0] * 11:
         return False
+    def calc(parcial, peso):
+        soma = sum(int(d) * (peso - i) for i, d in enumerate(parcial))
+        dig = (soma * 10) % 11
+        return dig if dig < 10 else 0
+    return cpf[-2:] == f"{calc(cpf[:9], 10)}{calc(cpf[:10], 11)}"
 
-    # Função interna usada para calcular os dígitos verificadores
-    def calcular_digito(parcial, peso_inicial):
-        soma = 0
-        peso = peso_inicial
-
-        # Para cada dígito do CPF, multiplica pelo peso e soma
-        for digito in parcial:
-            soma += int(digito) * peso
-            peso -= 1
-
-        # Regra matemática do CPF
-        resto = (soma * 10) % 11
-
-        # Se resto for maior que 9, retorna 0
-        return resto if resto < 10 else 0
-
-    # Calcula os dois dígitos verificadores do CPF
-    digito1 = calcular_digito(cpf[:9], 10)
-    digito2 = calcular_digito(cpf[:10], 11)
-
-    # Retorna True somente se os dígitos conferem
-    return digito1 == int(cpf[9]) and digito2 == int(cpf[10])
-
+def confirmar_voltar(acao="continuar"):
+    """
+    Pergunta ao usuário se quer prosseguir ou voltar.
+    Retorna True se deseja continuar, False se deseja voltar.
+    """
+    resposta = pergunta_sim_nao(f"Deseja {acao}?")
+    if resposta == "N":
+        info("Retornando à tela anterior...")
+        return False
+    return True
 
 # ============================================================
-# 📌 Cadastro de usuário
+# Cadastro de usuário
 # ============================================================
+
 def cadastrar_usuario(usuarios):
-    # Limpa a tela e exibe título com animação
-    design.tela("Cadastrar Usuário")
+    """Realiza o cadastro de um novo usuário com opção de voltar."""
+    tela("Cadastrar Usuário")
 
-    # Solicita o nome do usuário com input estilizado
-    nome = design.pergunta("Digite seu nome")
+    while True:
+        nome = pergunta("Digite seu nome")
+        if not validar_nome(nome):
+            anim_erro("Nome inválido! Use apenas letras e espaços.")
+            if not confirmar_voltar("tentar novamente"):
+                return
+            continue
+        break
 
-    # Solicita o CPF
-    cpf_raw = design.pergunta("Digite seu CPF (com ou sem pontuação)")
+    while True:
+        cpf_raw = pergunta("Digite seu CPF (com ou sem pontuação)")
+        if not validar_cpf(cpf_raw):
+            anim_erro("CPF inválido!")
+            if not confirmar_voltar("tentar novamente"):
+                return
+            continue
+        cpf = re.sub(r"[^0-9]", "", cpf_raw)
+        if cpf in usuarios:
+            anim_erro("Já existe um cadastro com este CPF!")
+            if not confirmar_voltar("tentar outro CPF"):
+                return
+            continue
+        break
 
-    # Valida o CPF
-    if not validar_cpf(cpf_raw):
-        design.anim_erro("CPF inválido!")
-        return
+    senha = pergunta("Digite sua senha")
+    pergunta_sec = pergunta("Digite sua pergunta secreta para recuperação")
+    resposta_sec = pergunta("Digite a resposta da pergunta secreta").lower().strip()
 
-    # Converte CPF para apenas números
-    cpf = re.sub(r"[^0-9]", "", cpf_raw)
+    usuarios[cpf] = {
+        "nome": nome,
+        "senha": senha,
+        "pergunta": pergunta_sec,
+        "resposta": resposta_sec,
+        "tentativas": 0,
+        "bloqueado": False
+    }
 
-    # Verifica se já existe cadastro com o mesmo CPF
-    if cpf in usuarios:
-        design.anim_erro("Este CPF já está cadastrado!")
-        return
-
-    # Solicita a senha
-    senha = design.pergunta("Digite sua senha")
-
-    # Salva nome e senha no dicionário de usuários
-    usuarios[cpf] = {"nome": nome, "senha": senha}
-
-    # Salva alterações no arquivo JSON
     salvar_usuarios(usuarios)
-
-    # Exibe mensagem de sucesso animada
-    design.anim_sucesso("Usuário cadastrado com sucesso!")
-
+    anim_sucesso("Usuário cadastrado com sucesso!")
 
 # ============================================================
-# 🔐 Login
+# Troca de senha
 # ============================================================
-def realizar_login(usuarios):
-    # Limpa tela e mostra título
-    design.tela("Login")
 
-    # Solicita CPF
-    cpf_raw = design.pergunta("CPF")
+def trocar_senha(usuarios, cpf):
+    tela("Trocar Senha")
+    while True:
+        senha_atual = pergunta("Digite sua senha atual")
+        if senha_atual != usuarios[cpf]["senha"]:
+            anim_erro("Senha incorreta!")
+            if not confirmar_voltar("tentar novamente"):
+                return
+            continue
+        break
+    while True:
+        nova = pergunta("Digite sua nova senha")
+        confirmar = pergunta("Confirme a nova senha")
+        if nova != confirmar:
+            anim_erro("As senhas não coincidem!")
+            if not confirmar_voltar("tentar novamente"):
+                return
+            continue
+        break
+    usuarios[cpf]["senha"] = nova
+    salvar_usuarios(usuarios)
+    anim_sucesso("Senha alterada com sucesso!")
 
-    # Remove caracteres não numéricos
-    cpf = re.sub(r"[^0-9]", "", cpf_raw)
+# ============================================================
+# Excluir conta
+# ============================================================
 
-    # Solicita senha
-    senha = design.pergunta("Senha")
-
-    # Verifica se existe o CPF e se a senha está correta
-    if cpf in usuarios and usuarios[cpf]["senha"] == senha:
-        # Mensagem de boas-vindas
-        design.anim_sucesso(f"Bem-vindo, {usuarios[cpf]['nome']}!")
-
-        try:
-            # Importa dinamicamente o menu principal
-            from menu_principal import main as menu_principal_main
-            menu_principal_main()
-
-        except ImportError:
-            # Caso o arquivo não exista, avisa o usuário
-            design.info("menu_principal.py não encontrado. Login concluído.")
+def excluir_conta(usuarios, cpf):
+    tela("Excluir Conta")
+    if pergunta_sim_nao("Tem certeza que deseja excluir sua conta?") == "S":
+        del usuarios[cpf]
+        salvar_usuarios(usuarios)
+        anim_sucesso("Conta excluída com sucesso!")
+        return True
     else:
-        # Mensagem de erro caso CPF/senha estejam incorretos
-        design.anim_erro("CPF ou senha incorretos!")
-
+        info("Operação cancelada.")
+        return False
 
 # ============================================================
-# 📋 Menu Principal do Sistema de Login
+# Recuperação de senha
 # ============================================================
+
+def recuperar_senha(usuarios):
+    tela("Recuperar Senha")
+    while True:
+        cpf_raw = pergunta("Digite seu CPF")
+        cpf = re.sub(r"[^0-9]", "", cpf_raw)
+        if cpf not in usuarios:
+            anim_erro("CPF não encontrado!")
+            if not confirmar_voltar("tentar novamente"):
+                return
+            continue
+        break
+    usuario = usuarios[cpf]
+    info(f"Pergunta secreta: {usuario['pergunta']}")
+    resposta = pergunta("Resposta").lower().strip()
+    if resposta != usuario["resposta"]:
+        anim_erro("Resposta incorreta!")
+        return
+    while True:
+        nova = pergunta("Digite sua nova senha")
+        confirmar = pergunta("Confirme a nova senha")
+        if nova != confirmar:
+            anim_erro("As senhas não coincidem!")
+            if not confirmar_voltar("tentar novamente"):
+                return
+            continue
+        break
+    usuario["senha"] = nova
+    usuario["tentativas"] = 0
+    usuario["bloqueado"] = False
+    salvar_usuarios(usuarios)
+    anim_sucesso("Senha redefinida com sucesso!")
+
+# ============================================================
+# Login
+# ============================================================
+
+def fazer_login(usuarios):
+    tela("Login")
+    while True:
+        cpf_raw = pergunta("Digite seu CPF")
+        cpf = re.sub(r"[^0-9]", "", cpf_raw)
+        if cpf not in usuarios:
+            anim_erro("CPF não encontrado!")
+            if not confirmar_voltar("tentar novamente"):
+                return
+            continue
+        break
+    usuario = usuarios[cpf]
+    if usuario["bloqueado"]:
+        anim_erro("Conta bloqueada!")
+        info("Use a recuperação de senha para desbloquear.")
+        return
+    while True:
+        senha = pergunta("Digite sua senha")
+        if senha == usuario["senha"]:
+            usuario["tentativas"] = 0
+            salvar_usuarios(usuarios)
+            anim_sucesso(f"Bem-vindo(a), {usuario['nome']}!")
+
+            # Redirecionamento pós-login
+            try:
+                from menu import main
+                main()
+            except ImportError:
+                anim_erro("menu.py não encontrado!")
+            return
+
+        usuario["tentativas"] += 1
+        salvar_usuarios(usuarios)
+
+        if usuario["tentativas"] >= 3:
+            usuario["bloqueado"] = True
+            salvar_usuarios(usuarios)
+            anim_erro("Conta BLOQUEADA!")
+            info("Use a recuperação de senha para desbloquear.")
+            return
+
+        anim_erro(f"Senha incorreta! Tentativas: {usuario['tentativas']}/3")
+        if not confirmar_voltar("tentar novamente"):
+            return
+
+# ============================================================
+# Menu principal do sistema
+# ============================================================
+
 def mostrar_menu():
-    # Exibe tela com título
-    design.tela("Sistema de Login")
-
-    # Exibe autoria dentro de um container visual
-    design.container("Desenvolvido por: Diego Teles", animado=False)
+    tela("Sistema de Login")
+    container("Desenvolvido por: Diego Teles", animado=False)
     print()
-
-    # Exibe opções do menu
-    print("[1] Cadastrar usuário")
-    print("[2] Login")
-    print("[3] Sair\n")
-
-    # Retorna a escolha do usuário
-    return design.pergunta("Escolha uma opção")
-
+    print("[1] Fazer login")
+    print("[2] Cadastrar usuário")
+    print("[3] Recuperar senha")
+    print("[4] Sair\n")
+    return pergunta("Escolha uma opção")
 
 # ============================================================
-# ▶️ Programa Principal
+# Programa principal
 # ============================================================
+
 def main():
-    # Carrega usuários existentes
     usuarios = carregar_usuarios()
-
-    # Loop do menu principal
     while True:
         opcao = mostrar_menu()
-
-        # Cadastro
         if opcao == "1":
-            cadastrar_usuario(usuarios)
-
-        # Login
+            fazer_login(usuarios)
         elif opcao == "2":
-            realizar_login(usuarios)
-
-        # Sair do programa
+            cadastrar_usuario(usuarios)
         elif opcao == "3":
-            design.anim_sucesso("Encerrando o programa...")
+            recuperar_senha(usuarios)
+        elif opcao == "4":
+            anim_sucesso("Encerrando o sistema...")
             break
-
-        # Caso a opção não exista
         else:
-            design.anim_erro("Opção inválida!")
+            anim_erro("Opção inválida!")
 
+# ============================================================
+# Executa apenas se for o arquivo principal
+# ============================================================
 
-# Executa o programa apenas se for o arquivo principal
 if __name__ == "__main__":
     main()
