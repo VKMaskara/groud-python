@@ -1,28 +1,41 @@
 #Feito por Vinícius de Paula 
-from design import *
+from design import * # Importa todas as funções e variáveis do módulo 'design'
+                    # (como limpar_tela, titulo_secao, container, pergunta, 
+                    # digitar, anim_erro, COR_TITULO, etc.).
 
-
+# Função principal para exibir o menu inicial do catálogo.
 def mostrar_menu():
+    # 'limpar_tela()' apaga o conteúdo anterior no console.
     limpar_tela()
+    # 'titulo_secao()' exibe um título formatado no topo.
     titulo_secao("CATÁLOGO DE BASQUETE", animar=False)
+    # 'container()' exibe as opções do menu dentro de caixas formatadas.
     container("1 - Ver história geral do basquete")
     container("2 - Ver times ")
     container("3 - Sair")
+    # 'pergunta()' solicita a entrada do usuário e retorna a escolha.
     return pergunta("Escolha uma opção")
 
-limpar_tela()
-#funções para exibir as coisas :'D
+limpar_tela() # Limpa a tela logo na inicialização do script.
+
+#--- Funções para exibir o conteúdo da história e dos times ---
+
+# Exibe a história geral do basquete.
 def historia_geral():
     limpar_tela()
+    # Exibe um título formatado.
     container("--- HISTÓRIA DO BASQUETE ---", cor=COR_TITULO)
+    # 'digitar()' exibe o texto com um efeito de digitação.
     digitar("""
 O basquete foi criado em 1891 por James Naismith, nos Estados Unidos.
 Com o tempo, tornou-se um dos esportes mais populares do mundo,
 principalmente por causa da NBA, que reúne os melhores jogadores do planeta.
 """)
+    # Pausa a execução até o usuário pressionar ENTER.
     input("Pressione ENTER para continuar...")
 
 
+# Exibe a história do Los Angeles Lakers.
 def historia_lakers():
     container("--- LOS ANGELES LAKERS ---", cor=COR_TITULO)
     digitar("""
@@ -32,6 +45,7 @@ Grandes nomes: Magic Johnson, Kareem Abdul-Jabbar, Kobe Bryant, Shaq, LeBron Jam
 """)
 
 
+# Exibe a história do Boston Celtics.
 def historia_celtics():
     container("--- BOSTON CELTICS ---", cor=COR_TITULO)
     digitar("""
@@ -41,6 +55,7 @@ Bill Russell e Larry Bird são alguns dos maiores ídolos.
 """)
 
 
+# Exibe a história do Chicago Bulls.
 def historia_bulls():
     container("--- CHICAGO BULLS ---", cor=COR_TITULO)
     digitar("""
@@ -50,6 +65,7 @@ os Bulls dominaram a NBA com 6 títulos em 8 anos.
 """)
 
 
+# Exibe a história do Golden State Warriors.
 def historia_warriors():
     container("--- GOLDEN STATE WARRIORS ---", cor=COR_TITULO)
     digitar("""
@@ -59,6 +75,7 @@ Stephen Curry liderou a franquia a vários títulos recentes.
 """)
 
 
+# Exibe a história do Miami Heat.
 def historia_heat():
     container("--- MIAMI HEAT ---", cor=COR_TITULO)
     digitar("""
@@ -68,6 +85,7 @@ a era 'Big Three' (LeBron, Wade e Bosh) e o técnico Erik Spoelstra.
 """)
 
 
+# Exibe a história do San Antonio Spurs.
 def historia_spurs():
     container("--- SAN ANTONIO SPURS ---", cor=COR_TITULO)
     digitar("""
@@ -77,6 +95,7 @@ Tim Duncan, Tony Parker e Manu Ginóbili formaram o lendário 'Big Three'.
 """)
 
 
+# Exibe a história do New York Knicks.
 def historia_knicks():
     container("--- NEW YORK KNICKS ---", cor=COR_TITULO)
     digitar("""
@@ -86,6 +105,7 @@ Teve destaque especialmente nas décadas de 70 e 90.
 """)
 
 
+# Exibe a história do Brooklyn Nets.
 def historia_nets():
     container("--- BROOKLYN NETS ---", cor=COR_TITULO)
     digitar("""
@@ -95,6 +115,7 @@ Nos últimos anos, tiveram estrelas como Kevin Durant e Kyrie Irving.
 """)
 
 
+# Exibe a história do Toronto Raptors.
 def historia_raptors():
     container("--- TORONTO RAPTORS ---", cor=COR_TITULO)
     digitar("""
@@ -103,6 +124,7 @@ Primeira franquia canadense campeã da NBA (2019), liderada por Kawhi Leonard.
 """)
 
 
+# Exibe a história do Dallas Mavericks.
 def historia_mavericks():
     container("--- DALLAS MAVERICKS ---", cor=COR_TITULO)
     digitar("""
@@ -112,6 +134,7 @@ Atualmente conhecido pelo talento de Luka Dončić.
 """)
 
 
+# Exibe a história do Phoenix Suns.
 def historia_suns():
     container("--- PHOENIX SUNS ---", cor=COR_TITULO)
     digitar("""
@@ -121,7 +144,9 @@ Chegaram às finais em 2021 liderados por Chris Paul e Devin Booker.
 """)
 
 
-# dicionário dos times
+# Dicionário que armazena os dados dos times.
+# A chave (string) é o número da opção no menu de times.
+# O valor é uma tupla: (Nome do time, Função que exibe a história do time).
 TIMES = {
     "1": ("Los Angeles Lakers", historia_lakers),
     "2": ("Boston Celtics", historia_celtics),
@@ -136,48 +161,71 @@ TIMES = {
     "11": ("Phoenix Suns", historia_suns),
 }
 
-#função para mostrar o menu de times
+# Função para exibir o menu de times disponíveis.
 def menu_times():
     limpar_tela()
     container("--- TIMES DA NBA ---", cor=COR_TITULO)
+    # Itera sobre o dicionário TIMES para exibir cada opção.
+    # 'key' é o número (ex: "1") e 'nome' é o nome do time.
     for key, (nome, _) in TIMES.items():
         container(f"{key} - {nome}")
     container("0 - Voltar")
+    # Retorna a escolha do usuário.
     return pergunta("Escolha um time")
 
-#função para ver um time
+# Função que gerencia a seleção e exibição da história de um time.
 def entrar_time():
+    # Inicia um loop infinito (WHILE TRUE) para manter o menu de times
+    # aberto até que o usuário escolha '0' (Voltar) ou um time válido.
     while True:
         escolha = menu_times()
 
+        # IF para verificar se a escolha é a opção '0' (Voltar).
         if escolha == "0":
-            return  
+            return # Sai da função, voltando ao menu principal.
+        
+        # IF para verificar se a escolha é uma chave válida no dicionário TIMES.
         if escolha in TIMES:
+            # Desempacota a tupla do time. O nome é ignorado (_),
+            # e a função de história é armazenada em 'funcao_historia'.
             _, funcao_historia = TIMES[escolha]
             limpar_tela()
-            funcao_historia()
+            funcao_historia() # Chama a função específica de história do time.
             input("\nPressione ENTER para voltar ao menu...")
-            return  
+            return # Sai da função após o usuário ler a história.
+        
+        # ELSE executado se a opção não for '0' nem uma chave válida no TIMES.
         else:
             anim_erro("Opção inválida. Tente novamente.")
+            # O loop 'while True' recomeça, exibindo o menu de times novamente.
 
-#estrutura principal do código
+# Função principal (main) do programa.
 def main():
+    # Inicia o loop principal (WHILE TRUE) para manter o programa em execução
+    # até que o usuário escolha a opção '3' (Sair).
     while True:
-        escolha = mostrar_menu()
+        escolha = mostrar_menu() # Exibe o menu principal e obtém a escolha.
         limpar_tela()
 
+        # IF para a opção '1' (Ver história geral do basquete).
         if escolha == "1":
             historia_geral()
             limpar_tela()
+        
+        # ELIF (Else If) para a opção '2' (Ver times).
         elif escolha == "2":
-            entrar_time()
+            entrar_time() # Chama a função que gerencia o menu e a exibição dos times.
             limpar_tela()
+        
+        # ELIF para a opção '3' (Sair).
         elif escolha == "3":
             limpar_tela()
             print("Saindo... ")
-            break
+            break # Encerra o loop 'while True', finalizando a função 'main'.
+        
+        # ELSE executado se a opção não for '1', '2' ou '3'.
         else:
             anim_erro("Opção inválida. Tente novamente.")
+            # O loop 'while True' recomeça, exibindo o menu principal novamente.
 
-main()
+main() # Inicia a execução do programa chamando a função 'main'.
