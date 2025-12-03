@@ -93,10 +93,14 @@ while True:
     else:
         print(design.COR_INFO + '\nAs unidades são iguais! Nada para converter.')
 
-    #  Pergunta se quer repetir
-    repetir = input(design.COR_PERGUNTA + "\nDeseja fazer outra conversão? (S/N): ").strip().upper()
+    #  Pergunta se quer repetir – AGORA VALIDADA CORRETAMENTE
+    while True:
+        repetir = input(design.COR_PERGUNTA + "\nDeseja fazer outra conversão? (S/N): ").strip().upper()
+        if repetir in ["S", "N"]:
+            break
+        print(design.COR_INFO + "\nOpção inválida! Digite apenas S ou N.\n")
 
-    if repetir != "S":   # se não for S, encerra
+    if repetir == "N":
         break
 
     os.system('cls')  # limpa a tela para reiniciar o loop
