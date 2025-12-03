@@ -13,6 +13,7 @@ def mostrar_menu():
 limpar_tela()
 #funções para exibir as coisas :'D
 def historia_geral():
+    limpar_tela()
     container("--- HISTÓRIA DO BASQUETE ---", cor=COR_TITULO)
     digitar("""
 O basquete foi criado em 1891 por James Naismith, nos Estados Unidos.
