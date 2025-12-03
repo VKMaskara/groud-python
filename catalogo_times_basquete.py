@@ -11,7 +11,7 @@ def mostrar_menu():
     return pergunta("Escolha uma opção")
 
 limpar_tela()
-
+#funções para exibir as coisas :'D
 def historia_geral():
     container("--- HISTÓRIA DO BASQUETE ---", cor=COR_TITULO)
     digitar("""
@@ -120,7 +120,7 @@ Chegaram às finais em 2021 liderados por Chris Paul e Devin Booker.
 """)
 
 
-# DICIONÁRIO DOS TIMES
+# dicionário dos times
 TIMES = {
     "1": ("Los Angeles Lakers", historia_lakers),
     "2": ("Boston Celtics", historia_celtics),
@@ -135,7 +135,7 @@ TIMES = {
     "11": ("Phoenix Suns", historia_suns),
 }
 
-
+#função para mostrar o menu de times
 def menu_times():
     limpar_tela()
     container("--- TIMES DA NBA ---", cor=COR_TITULO)
@@ -144,7 +144,7 @@ def menu_times():
     container("0 - Voltar")
     return pergunta("Escolha um time")
 
-
+#função para ver um time
 def entrar_time():
     while True:
         escolha = menu_times()
@@ -160,7 +160,7 @@ def entrar_time():
         else:
             anim_erro("Opção inválida. Tente novamente.")
 
-
+#estrutura principal do código
 def main():
     while True:
         escolha = mostrar_menu()
