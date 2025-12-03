@@ -106,4 +106,4 @@ while True:
     os.system('cls')  # limpa a tela para reiniciar o loop
 
 
-print(design.COR_SUCESSO + '\nObrigado por usar o conversor de temperaturas! 😊')
+print(design.COR_SUCESSO + '\nObrigado por usar o conversor de temperaturas!!! 😊')
