@@ -1,7 +1,6 @@
 import os
 import design
 
-
 from design import (
     titulo_secao,
     container,
@@ -29,7 +28,6 @@ def classificar_imc(imc):
         return "Obesidade"
 
 
-
 # ============================================================
 # LISTA DE ATLETAS
 # ============================================================
@@ -49,16 +47,26 @@ def validar_nome():
             anim_erro("O nome deve conter apenas letras e espaços!")
 
 
-def validar_float(msg):
+def validar_float(msg, minimo=None, maximo=None):
     while True:
         valor = pergunta(msg).replace(",", ".")  # permite vírgula
 
         try:
             valor = float(valor)
+
             if valor <= 0:
                 anim_erro("O valor deve ser maior que zero!")
-            else:
-                return valor
+                continue
+
+            if minimo is not None and valor < minimo:
+                anim_erro(f"O valor mínimo permitido é {minimo}!")
+                continue
+
+            if maximo is not None and valor > maximo:
+                anim_erro(f"O valor máximo permitido é {maximo}!")
+                continue
+
+            return valor
 
         except ValueError:
             anim_erro("Digite um número válido!")
@@ -71,8 +79,8 @@ def cadastrar_atleta():
     tela("CADASTRO DE ATLETA")
 
     nome = validar_nome()
-    peso = validar_float("Peso (kg)")
-    altura = validar_float("Altura (m)")
+    peso = validar_float("Peso (kg)", minimo=20, maximo=300)
+    altura = validar_float("Altura (m)", minimo=0.5, maximo=2.6)
 
     imc = calcular_imc(peso, altura)
     classificacao = classificar_imc(imc)
@@ -127,7 +135,6 @@ def mostrar_menu():
     container("1 - Cadastrar atleta", animado=False)
     container("2 - Lista de atletas", animado=False)
     container("3 - Sair", animado=False)
-
     print()
 
 
@@ -140,6 +147,11 @@ while True:
 
     opcao = pergunta("Escolha uma opção")
 
+    # 🔥 Agora o menu valida opções inválidas
+    if opcao not in ["1", "2", "3"]:
+        anim_erro("Opção inválida! Tente novamente.")
+        continue
+
     if opcao == "1":
         cadastrar_atleta()
 
@@ -148,4 +160,4 @@ while True:
 
     elif opcao == "3":
         tela("SAINDO DO SISTEMA")
-        break   # ✔ AGORA O PROGRAMA FINALIZA CORRETAMENTE
+        break
