@@ -7,7 +7,7 @@ design.limpar_tela()
 design.titulo_secao("Seja muito bem vindo ao programa dos Macacos da Programação!") #mensagem inicial que irá aparecer para o usuario
 design.titulo_secao("Aqui você vai encontrar jogos, cálculos, esportes, financeiro e muito mais!") #mensagem explicando o programa
 
-design.container("ETEC ITAPEVI - 2º MÓDULO DE DESENVOLVIMENTO DE SISTEMAS") #mensagem do curso
+design.container("ETEC ITAPEVI - 2º MÓDULO DE DESENVOLVIMENTO DE SISTEMAS") #mensagem do curso que desenvolveu o programa
 
 design.container("Toque a tecla ENTER para continuar") #texto instruindo o usuario a continuar
 (input()) #usuario digita qualquer tecla para continuar
