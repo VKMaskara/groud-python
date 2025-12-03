@@ -69,8 +69,11 @@ def calcular_custo_combustivel():
 
     if custo_total_alcool <= custo_total_gasolina * 0.7:
         anim_sucesso("Álcool é a melhor opção para essa viagem")
+        info("OBS. lembrando que um carro consome 70 por cento a menos com gasolina")
     else:
-        anim_erro("Gasolina é a melhor opção para essa viagem")
+        anim_sucesso("Gasolina é a melhor opção para essa viagem")
+        info("OBS. lembrando que um carro consome 70 por cento a menos com gasolina")
+
 
     print(COR_INFO + "\n===== HISTÓRICO =====" + RESET)
     for item in historico_calculos:
