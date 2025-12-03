@@ -165,12 +165,16 @@ def entrar_time():
 def main():
     while True:
         escolha = mostrar_menu()
+        limpar_tela()
 
         if escolha == "1":
             historia_geral()
+            limpar_tela()
         elif escolha == "2":
             entrar_time()
+            limpar_tela()
         elif escolha == "3":
+            limpar_tela()
             print("Saindo... ")
             break
         else:
