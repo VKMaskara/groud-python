@@ -10,7 +10,7 @@ design.titulo_secao("Aqui você vai encontrar jogos, cálculos, esportes, financ
 design.container("ETEC ITAPEVI - 2º MÓDULO DE DESENVOLVIMENTO DE SISTEMAS") #mensagem do curso que desenvolveu o programa
 
 design.container("Toque a tecla ENTER para continuar") #texto instruindo o usuario a continuar
-(input()) #usuario digita qualquer tecla para continuar
+(input()) #usuario digita enter para continuar
 
 design.limpar_tela() #função que limpa a tela
 
