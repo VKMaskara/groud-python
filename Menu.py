@@ -122,7 +122,7 @@ def submenu_financeiro():
         opc = pergunta('Escolha uma opção: ')
 
         if opc == '1':
-            from calculo_financas_pessoais import main
+            from financas_pessoais import main
             main()
         elif opc == '2':
             from financiamento_de_juros import main
