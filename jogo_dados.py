@@ -3,6 +3,8 @@ import os      #importa a biblioteca os para comandos do sistema operacional
 
 import design    #importa o módulo design para elementos visuais(Meninos)
 
+design.limpar_tela()
+
 design.titulo_secao("🎲🎲🎲JOGO DO DADOS🎲🎲🎲")  #chama a função titulo_secao do módulo design para mostrar o título do jogo
 design.loading(design.COR_SUCESSO + "🎲🎲Iniciando o Jogo dos Dados🎲🎲", ciclos=2, tempo=0.3 )  #chama a função loading do módulo design para animação de carregamento
 
