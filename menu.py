@@ -39,8 +39,8 @@ def submenu_jogos():
         limpar_tela()
         container('--- SUBMENU JOGOS ---')
         digitar('1. Jogo do 21')
-        digitar('2. jogo_de_palavras')
-        digitar('3. dado')
+        digitar('2. Jogo de Palavras')
+        digitar('3. Jogo do dado')
         digitar("0. Voltar")
 
         opcão = pergunta('Escolha uma opção: ')
@@ -82,7 +82,8 @@ def submenu_calculos():
             import calculo_folha_de_pagamento
             calculo_folha_de_pagamento.main()
         elif opc == '4':
-            digitar('divisão...')
+            import calculo_area
+            calculo_area.main()
         elif opc == '0':
             break
         else:
@@ -91,9 +92,12 @@ def submenu_calculos():
 
 def submenu_esporte():
     while True:
+        limpar_tela()
         container('--- SUBMENU ESPORTE ---')
         digitar('1. IMC de Atletas')
-        digitar('2. Pife')
+        digitar('2. Competição de Skate')
+        digitar('3. Quiz do Corinthians')
+        digitar('4. Catalogo de Times de Basquete')
         digitar('0. Voltar')
 
         opc = pergunta('Escolha uma opção: ')
@@ -102,7 +106,14 @@ def submenu_esporte():
           import programa_atleta_imc
           programa_atleta_imc.main()
         elif opc == '2':
-            digitar('Mostrando Pife...')
+            import competicao_skate
+            competicao_skate.main()
+        elif opc == '3':
+            import quiz_corinthians
+            quiz_corinthians.main()
+        elif opc == '4':
+            import catalogo_times_basquete
+            catalogo_times_basquete.main()
         elif opc == "0":
             break
         else:
@@ -111,19 +122,28 @@ def submenu_esporte():
 
 def submenu_financeiro():
     while True:
+        limpar_tela()
         container('--- SUBMENU FINANCEIRO ---')
-        digitar('1. calculo_financas_pessoais')
-        digitar('2. financiamento_de_juros')
+        digitar('1. Finanças Pessoais')
+        digitar('2. Financiamento de Juros')
+        digitar('3. impostos de renda')
+        digitar('4. Bolsa de Valores')
         digitar('0. Voltar')
 
         opc = pergunta('Escolha uma opção: ')
 
         if opc == '1':
-            from financas_pessoais import main
-            main()
+            import financas_pessoais
+            financas_pessoais.main()
         elif opc == '2':
-            from financiamento_de_juros import main
-            main()
+            import financiamento_de_juros
+            financiamento_de_juros.main()
+        elif opc == '3':
+            import imposto_renda
+            imposto_renda.main()
+        elif opc == '4':
+            anim_erro('ESSE CÓDIGO AINDA NÃO FOI IMPLEMENTADO!')
+            input(COR_PERGUNTA + "\nPressione ENTER para voltar ao submenu...")
         elif opc == "0":
             break
         else:
@@ -132,17 +152,29 @@ def submenu_financeiro():
 
 def submenu_outro():
     while True:
+        limpar_tela()
         container('--- SUBMENU OUTRO ---')
-        digitar('1. ')
-        digitar('2. Configurações')
-        digitar( '0. Voltar')
+        digitar('1. Cátalogo de Filmes')
+        digitar('2. Organizador de Tarefas')
+        digitar('3. Playlist de Músicas')
+        digitar('4. Verfificador de Senha')
 
         opc = pergunta('Escolha uma opção: ')
 
         if opc == '1':
-            digitar('Mostrando informações gerais...')
+            import catalogo_de_filmes
+            catalogo_de_filmes.main()
         elif opc == "2":
-            digitar('Abrindo configurações...')
+            import organizador_de_tarefas
+            organizador_de_tarefas.main()
+        elif opc == '3':
+            anim_erro('ESSE CÓDIGO AINDA NÃO FOI FINALIZADO!')
+            input(COR_PERGUNTA + "\nPressione ENTER para voltar ao submenu...")
+            #import list_musica
+            #list_musica.main()
+        elif opc == '4':
+            import verificador_senha
+            verificador_senha.main()
         elif opc == '0':
             break
         else:
