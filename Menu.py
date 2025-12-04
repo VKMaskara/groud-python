@@ -79,8 +79,8 @@ def submenu_calculos():
           import calculo_combustivel
           calculo_combustivel.main()
         elif opc == '2':
-          import conversor_de_medidas
-          conversor_de_medidas.main()
+          import conversor_de_temperatura
+          conversor_de_temperatura.main()
         elif opc == '3':
             import calculo_folha_de_pagamento
             calculo_folha_de_pagamento.main()
