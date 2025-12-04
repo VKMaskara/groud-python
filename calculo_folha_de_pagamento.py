@@ -5,8 +5,9 @@ import time
 import design
 
 nome=[]#tabela para armazenar o nome do colaborador
+design.limpar_tela()
 nome.append(input("DIGITE O NOME DO COLABORADOR: "))# pede ao usuário o nome do colaborador
-def folha_de_pagamento():#função principal do sistema de cálculo de folha de pagamento
+def main():#função principal do sistema de cálculo de folha de pagamento
     design.limpar_tela()# limpa a tela antes de iniciar o cálculo
     design.titulo_secao("Cálculo de Folha de Pagamento", animar=True)
     design.loading("Iniciando o sistema", ciclos=3, tempo=0.5)
@@ -77,8 +78,9 @@ def folha_de_pagamento():#função principal do sistema de cálculo de folha de 
     design.titulo_secao("Obrigado por utilizar o sistema de cálculo de folha de pagamento", animar=True)
     
     time.sleep(1)
+
     
 if __name__ == "__main__":
-    folha_de_pagamento()
+    main()
 
 

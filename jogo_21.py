@@ -22,6 +22,7 @@ COR_BRANCO   = "\033[37m"
 # FUNÇÕES BÁSICAS
 # ============================================================
 
+
 def pegar_carta():
     return random.randint(1, 11)
 
