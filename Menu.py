@@ -57,10 +57,7 @@ def submenu_jogos():
             main()
         elif opcão == '4':
             from competição_skate import main
-            main()
-        elif opcão == '4':
-            from quiz_corinthians import main
-            main()
+            main()    
         elif opcão == "0":
             break
         else:
