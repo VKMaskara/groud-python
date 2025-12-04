@@ -164,6 +164,7 @@ def main():
         elif opcao == "3":
             tela("SAINDO DO SISTEMA")
             break
+        input(design.COR_PERGUNTA + "\nPressione ENTER para voltar ao submenu...")
 
 if __name__ == "__main__":
     main()

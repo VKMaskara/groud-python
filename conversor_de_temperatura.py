@@ -3,6 +3,7 @@ import time
 import design
 import locale  # Importando o módulo locale
 
+
 # Configura a localidade para o Brasil (onde usamos vírgula como separador decimal)
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 

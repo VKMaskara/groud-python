@@ -168,6 +168,7 @@ def main():
                                 break
 
         corinthians()  # Chama a função e inicia o programa
+        input(design.COR_PERGUNTA + "\nPressione ENTER para voltar ao submenu...")
 
 if __name__ == "__main__":
     main()

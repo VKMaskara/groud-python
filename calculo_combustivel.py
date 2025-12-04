@@ -39,6 +39,7 @@ def main():
     # ------------------- FUNÇÃO PRINCIPAL -------------------
 
     def calcular_custo_combustivel():
+        limpar_tela()
         tela("Cálculo de custo do combustível")
         info("Insira os dados para estimar o custo da viagem")
 
