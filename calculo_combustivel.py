@@ -1,4 +1,5 @@
-from design import tela, pergunta, info, anim_sucesso, anim_erro, COR_INFO, COR_TITULO, COR_SUCESSO, COR_ERRO, RESET, limpar_tela, limpar_tela
+from design import tela, pergunta, info, anim_sucesso, anim_erro, COR_INFO, COR_TITULO, COR_SUCESSO, COR_ERRO, RESET, limpar_tela
+import time
 import time
 
 # ------------------- ESTRUTURA DE DADOS -------------------
@@ -16,13 +17,12 @@ def input_float_validado(msg):
     while True:
         valor = pergunta(msg).strip().replace(",", ".")
         
-        if valor.replace(".", "", 1).isdigit():  # permite 1 ponto decimal
+        if valor.replace(".", "", 1).isdigit():
             num = float(valor)
             if num < 0:
                 print("❌ O valor não pode ser negativo!")
             else:
                 return num
-        
         else:
             print("❌ Entrada inválida! Digite apenas números.")
 
@@ -61,25 +61,26 @@ def calcular_custo_combustivel():
     print(COR_TITULO + "\n===== RESULTADO DA VIAGEM =====" + RESET)
     print(f"Distância informada: {distancia_viagem} KM")
     print(f"Consumo do veículo: {consumo_veiculo} KM/L")
-    print(f"Litros necessários: {litros_necessarios:.2f} L")
+    print(f"Litros necessários: {litros_necessarios:.2f}".replace(".", ",") + " L")
 
     print(COR_TITULO + "\nCustos:" + RESET)
-    print(f"• Gasolina: R$ {custo_total_gasolina:.2f}")
-    print(f"• Álcool: R$ {custo_total_alcool:.2f}")
+    print(f"• Gasolina: R$ {custo_total_gasolina:.2f}".replace(".", ","))
+    print(f"• Álcool: R$ {custo_total_alcool:.2f}".replace(".", ","))
+
+    percentual = (combustiveis["alcool"] / combustiveis["gasolina"]) * 100
+    info(f"OBS: Álcool custa {percentual:.1f}% do valor da gasolina".replace(".", ","))
 
     if custo_total_alcool <= custo_total_gasolina * 0.7:
         anim_sucesso("Álcool é a melhor opção para essa viagem")
-        info("OBS. lembrando que um carro consome 70 por cento a menos com gasolina")
     else:
         anim_sucesso("Gasolina é a melhor opção para essa viagem")
-        info("OBS. lembrando que um carro consome 70 por cento a menos com gasolina")
-
 
     print(COR_INFO + "\n===== HISTÓRICO =====" + RESET)
     for item in historico_calculos:
-        print("→ " + item)
+        print("→ " + item.replace(".", ","))
 
     print("\n")
+    input("Pressione para continuar...")
 
 # ------------------- EXECUÇÃO -------------------
 
