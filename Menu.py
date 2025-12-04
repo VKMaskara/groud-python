@@ -7,7 +7,7 @@ design.limpar_tela()
 
 def menu_principal():
     while True:
-        design.titulo_secao('=== MENU PRINCIPAL ===')
+        design.titulo_secao('=== MENU PRINCIPAL ===', animar=False)
         print('1. Jogos')
         print('2. Cálculos')
         print('3. Esporte')
@@ -87,14 +87,14 @@ def submenu_calculos():
         opc = input('Escolha uma opção: ')
 
         if opc == '1':
-          from calculo_combustivel import main
-          main()
+          import calculo_combustivel
+          calculo_combustivel.main()
         elif opc == '2':
-          from  modulo_imc import main
-          main()
+          import programa_atleta_imc
+          programa_atleta_imc.main()
         elif opc == '3':
-           from calculo_folha_de_pagamento import main
-           main()
+            import calculo_folha_de_pagamento
+            calculo_folha_de_pagamento.main()
         elif opc == '4':
             print('divisão...')
         elif opc == '0':
@@ -162,4 +162,5 @@ def submenu_outro():
         else:
             print('Opção inválida!')
 
-
+if __name__ == "__main__":
+    menu_principal()
