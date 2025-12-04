@@ -36,12 +36,11 @@ def menu_principal():
 
 def submenu_jogos():
     while True:
-        digitar('\n--- SUBMENU JOGOS ---')
+        limpar_tela()
+        container('--- SUBMENU JOGOS ---')
         digitar('1. Jogo do 21')
         digitar('2. jogo_de_palavras')
         digitar('3. dado')
-        digitar('4. competição_skate')
-        digitar('4. quiz_corinthians')
         digitar("0. Voltar")
 
         opcão = pergunta('Escolha uma opção: ')
@@ -50,14 +49,11 @@ def submenu_jogos():
            import jogo_21
            jogo_21.main()
         elif opcão == '2':
-            from jogo_de_palavras import main
-            main()
+            import jogo_de_palavras
+            jogo_de_palavras.main()
         elif opcão == '3':
-            from dado import main
-            main()
-        elif opcão == '4':
-            from competição_skate import main
-            main()    
+            import jogo_dados
+            jogo_dados.main()   
         elif opcão == "0":
             break
         else:
@@ -66,11 +62,12 @@ def submenu_jogos():
 
 def submenu_calculos():
     while True:
-        digitar('\n--- SUBMENU CÁLCULOS ---')
+        limpar_tela()   
+        container('--- SUBMENU CÁLCULOS ---')
         digitar('1. calculo_combustivel')
         digitar('2. Conversor de temperatura')
-        digitar('3. calculo_folha_de_pagamnento' )
-        digitar('4. Divisão')
+        digitar('3. Calculo de folha de pagamnento' )
+        digitar('4. Cálculo de área')
         digitar('0. Voltar')
 
         opc = pergunta('Escolha uma opção: ')
@@ -94,7 +91,7 @@ def submenu_calculos():
 
 def submenu_esporte():
     while True:
-        digitar('\n--- SUBMENU ESPORTE ---')
+        container('--- SUBMENU ESPORTE ---')
         digitar('1. IMC de Atletas')
         digitar('2. Pife')
         digitar('0. Voltar')
@@ -114,7 +111,7 @@ def submenu_esporte():
 
 def submenu_financeiro():
     while True:
-        digitar('\n--- SUBMENU FINANCEIRO ---')
+        container('--- SUBMENU FINANCEIRO ---')
         digitar('1. calculo_financas_pessoais')
         digitar('2. financiamento_de_juros')
         digitar('0. Voltar')
@@ -135,7 +132,7 @@ def submenu_financeiro():
 
 def submenu_outro():
     while True:
-        digitar('\n--- SUBMENU OUTRO ---')
+        container('--- SUBMENU OUTRO ---')
         digitar('1. ')
         digitar('2. Configurações')
         digitar( '0. Voltar')
