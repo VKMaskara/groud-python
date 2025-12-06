@@ -40,7 +40,7 @@ def submenu_jogos():
         container('--- SUBMENU JOGOS ---')
         digitar('1. Jogo do 21')
         digitar('2. Jogo de Palavras')
-        digitar('3. Jogo do dado')
+        digitar('3. Jogo do Dado')
         digitar("0. Voltar")
 
         opcão = pergunta('Escolha uma opção: ')
@@ -64,10 +64,10 @@ def submenu_calculos():
     while True:
         limpar_tela()   
         container('--- SUBMENU CÁLCULOS ---')
-        digitar('1. calculo_combustivel')
-        digitar('2. Conversor de temperatura')
-        digitar('3. Calculo de folha de pagamnento' )
-        digitar('4. Cálculo de área')
+        digitar('1. Cálculo de Combustível')
+        digitar('2. Conversor de Temperatura')
+        digitar('3. Cálculo de Folha de Pagamento' )
+        digitar('4. Cálculo de Área')
         digitar('0. Voltar')
 
         opc = pergunta('Escolha uma opção: ')
@@ -126,7 +126,7 @@ def submenu_financeiro():
         container('--- SUBMENU FINANCEIRO ---')
         digitar('1. Finanças Pessoais')
         digitar('2. Financiamento de Juros')
-        digitar('3. impostos de renda')
+        digitar('3. Impostos de Renda')
         digitar('4. Bolsa de Valores')
         digitar('0. Voltar')
 
