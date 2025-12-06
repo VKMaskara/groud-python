@@ -110,121 +110,124 @@ def pergunta_sim_nao(texto):
 # Início do jogo
 # ===============
 
-titulo_secao("Bem vindo ao Qual Serase?")
+def main():
+    titulo_secao("Bem vindo ao Qual Serase?")
 
-pausar()
+    pausar()
 
-info("Você deve Acertar a palavra em 6 tentativas")
+    info("Você deve Acertar a palavra em 6 tentativas")
 
-pausar_mais()
+    pausar_mais()
 
-info("Letras verdes querem dizer que a letra existe na palavra e está no lugar certo")
+    info("Letras verdes querem dizer que a letra existe na palavra e está no lugar certo")
 
-pausar_mais()
+    pausar_mais()
 
-info("Letras amarelas querem dizer que a letra existe na palavra mas está no lugar errado")
+    info("Letras amarelas querem dizer que a letra existe na palavra mas está no lugar errado")
 
-pausar_mais()
-
-limpar_tela()
-
-titulo_secao("Boa sorte")
-
-pausar_mais()
-
-# =======================
-# Início do loop do jogo
-# =======================
-
-while True:
-
-    venceu= False
-
-    palavra= random.choice(palavras)
+    pausar_mais()
 
     limpar_tela()
 
-    # Remova o # para testar o funiconamento do código 
-    #   |
-    #   V
-    # print(palavra)
+    titulo_secao("Boa sorte")
 
-    # ===========
-    # Tentativas
-    # ===========
+    pausar_mais()
 
-    for tentativa in range(0,6):
+    # =======================
+    # Início do loop do jogo
+    # =======================
 
-        tentativa = ""
-        while True:
-            tentativa = (input("Digite uma palavra de 5 letras: ").upper().strip())
-            tentativa = remover_acentos(tentativa)
+    while True:
+
+        venceu= False
+
+        palavra= random.choice(palavras)
+
+        limpar_tela()
+
+        # Remova o # para testar o funiconamento do código 
+        #   |
+        #   V
+        # print(palavra)
+
+        # ===========
+        # Tentativas
+        # ===========
+
+        for tentativa in range(0,6):
+
+            tentativa = ""
+            while True:
+                tentativa = (input("Digite uma palavra de 5 letras: ").upper().strip())
+                tentativa = remover_acentos(tentativa)
+                
+                if len(tentativa) != 5 or not tentativa.isalpha():
+                    print(f"{COR_ERRO}Palavra inválida, tente novamente{RESET}")
+                    pausar()
+                    continue  
+                
+                if tentativa not in palavras:
+                    print(F"{COR_ERRO}Palavra não reconhecida, por favor tente novamente{RESET}")
+                    pausar()
+                    continue
+                
+                break  
+
+            # =============================
+            # Resultados de cada tentativa
+            # =============================
             
-            if len(tentativa) != 5 or not tentativa.isalpha():
-                print(f"{COR_ERRO}Palavra inválida, tente novamente{RESET}")
-                pausar()
-                continue  
-            
-            if tentativa not in palavras:
-                print(F"{COR_ERRO}Palavra não reconhecida, por favor tente novamente{RESET}")
-                pausar()
-                continue
-            
-            break  
+            resultado = ""
 
-        # =============================
-        # Resultados de cada tentativa
-        # =============================
+            for i in range(5):
+                if tentativa[i] == palavra[i]:
+                    resultado += f"{COR_VERDE}{tentativa[i]}{RESET}"
+                elif tentativa[i] in palavra:
+                    resultado += f"{COR_AMARELO}{tentativa[i]}{RESET}"
+                else:
+                    resultado += tentativa[i]
+
+            print(resultado)
+
+            pausar_mais()
+
+            # ===================
+            # Em caso de vitória
+            # ===================
         
-        resultado = ""
-
-        for i in range(5):
-            if tentativa[i] == palavra[i]:
-                resultado += f"{COR_VERDE}{tentativa[i]}{RESET}"
-            elif tentativa[i] in palavra:
-                resultado += f"{COR_AMARELO}{tentativa[i]}{RESET}"
-            else:
-                resultado += tentativa[i]
-
-        print(resultado)
-
-        pausar_mais()
+            if tentativa == palavra:
+                print(f"{COR_SUCESSO}Você acertou!!!{RESET}")
+                venceu = True
+                pausar()
+                limpar_tela()
+                break 
 
         # ===================
-        # Em caso de vitória
+        # Em caso de derrota
         # ===================
-    
-        if tentativa == palavra:
-            print(f"{COR_SUCESSO}Você acertou!!!{RESET}")
-            venceu = True
+
+        if not venceu:
+            print(f"Que pena! A palavra era: {palavra}")
+
+            pausar_mais()
+            limpar_tela()
+
+        # ========================
+        # Loop de jogar novamente
+        # ========================
+        
+        resposta= pergunta_sim_nao("Deseja jogar novamente?")
+        
+        if resposta == "N":
             pausar()
             limpar_tela()
-            break 
+            print(f"{COR_SUCESSO}Obrigado por jogar!{RESET}")
+            break
+        elif resposta == "S":
+            pausar()
+            limpar_tela()
+            True
 
-    # ===================
-    # Em caso de derrota
-    # ===================
-
-    if not venceu:
-        print(f"Que pena! A palavra era: {palavra}")
-
-        pausar_mais()
-        limpar_tela()
-
-    # ========================
-    # Loop de jogar novamente
-    # ========================
-    
-    resposta= pergunta_sim_nao("Deseja jogar novamente?")
-    
-    if resposta == "N":
-        pausar()
-        limpar_tela()
-        print(f"{COR_SUCESSO}Obrigado por jogar!{RESET}")
-        break
-    elif resposta == "S":
-        pausar()
-        limpar_tela()
-        True
-    
+if __name__ == "__main__":
+    main()    
     
