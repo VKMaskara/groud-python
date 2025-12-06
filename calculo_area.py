@@ -232,6 +232,5 @@ def main():
             loading("Saindo")
             break
 
-
-# Executa o programa principal
-main()
+if __name__ == "__main__":
+    main()
