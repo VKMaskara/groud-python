@@ -19,7 +19,7 @@ def ler_int(mensagem):
                 continue
             return valor
         except:
-            anim_erro("Digite um número inteiro válido.")
+            anim_erro("Digite um número válido.")
 
 
 def ler_float(mensagem):
