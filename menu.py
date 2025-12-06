@@ -157,7 +157,7 @@ def submenu_outro():
         digitar('1. Cátalogo de Filmes')
         digitar('2. Organizador de Tarefas')
         digitar('3. Playlist de Músicas')
-        digitar('4. Verfificador de Senha')
+        digitar('4. Verificador de Senha')
         digitar('0. Voltar')
 
         opc = pergunta('Escolha uma opção: ')
