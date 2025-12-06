@@ -164,7 +164,7 @@ def submenu_outro():
 
         if opc == '1':
             import catalogo_de_filmes
-            catalogo_de_filmes.main()
+            catalogo_de_filmes.menu_principal()
         elif opc == "2":
             import organizador_de_tarefas
             organizador_de_tarefas.main()
