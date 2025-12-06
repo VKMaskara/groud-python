@@ -111,6 +111,9 @@ def pergunta_sim_nao(texto):
 # ===============
 
 def main():
+
+    limpar_tela()
+
     titulo_secao("Bem vindo ao Qual Serase?")
 
     pausar()
