@@ -141,96 +141,99 @@ def pergunta_sim_nao(texto):
         digitar("Entrada inválida! Digite apenas 'S' ou 'N'.\n", 0.01)
 
 
-titulo_secao("Bem vindo ao Qual Serase?")
+def main():
+    
+    titulo_secao("Bem vindo ao Qual Serase?")
 
-pausar()
+    pausar()
 
-info("Você deve Acertar a palavra em 6 tentativas")
+    info("Você deve Acertar a palavra em 6 tentativas")
 
-pausar_mais()
+    pausar_mais()
 
-info("Letras verdes querem dizer que a letra existe na palavra e está no lugar certo")
+    info("Letras verdes querem dizer que a letra existe na palavra e está no lugar certo")
 
-pausar_mais()
+    pausar_mais()
 
-info("Letras amarelas querem dizer que a letra existe na palavra mas está no lugar errado")
+    info("Letras amarelas querem dizer que a letra existe na palavra mas está no lugar errado")
 
-pausar_mais()
-
-limpar_tela()
-
-titulo_secao("Boa sorte")
-
-pausar_mais()
-
-while True:
-
-    venceu= False
-
-    palavra= random.choice(palavras)
+    pausar_mais()
 
     limpar_tela()
-    '''
-    print(palavra)
-    '''
 
-    for tentativa in range(0,6):
+    titulo_secao("Boa sorte")
 
-        tentativa = ""
-        while True:
-            tentativa = (input("Digite uma palavra de 5 letras: ").upper().strip())
-            tentativa = remover_acentos(tentativa)
+    pausar_mais()
+
+    while True:
+
+        venceu= False
+
+        palavra= random.choice(palavras)
+
+        limpar_tela()
+        '''
+        print(palavra)
+        '''
+
+        for tentativa in range(0,6):
+
+            tentativa = ""
+            while True:
+                tentativa = (input("Digite uma palavra de 5 letras: ").upper().strip())
+                tentativa = remover_acentos(tentativa)
+                
+                if len(tentativa) != 5 or not tentativa.isalpha():
+                    print("Palavra inválida, tente novamente")
+                    pausar()
+                    continue  
+                
+                if tentativa not in palavras:
+                    print("Palavra não reconhecida, por favor tente novamente")
+                    pausar()
+                    continue
+                
+                break  
             
-            if len(tentativa) != 5 or not tentativa.isalpha():
-                print("Palavra inválida, tente novamente")
-                pausar()
-                continue  
-            
-            if tentativa not in palavras:
-                print("Palavra não reconhecida, por favor tente novamente")
-                pausar()
-                continue
-            
-            break  
+            resultado = ""
+
+            for i in range(5):
+                if tentativa[i] == palavra[i]:
+                    resultado += f"{verde}{tentativa[i]}{RESET}"
+                elif tentativa[i] in palavra:
+                    resultado += f"{amarelo}{tentativa[i]}{RESET}"
+                else:
+                    resultado += tentativa[i]
+
+            print(resultado)
+
+            pausar_mais()
         
-        resultado = ""
+            if tentativa == palavra:
+                print(f"{COR_SUCESSO}Você acertou!!!{COR_BRANCO}")
+                venceu = True
+                pausar()
+                limpar_tela()
+                break  
 
-        for i in range(5):
-            if tentativa[i] == palavra[i]:
-                resultado += f"{verde}{tentativa[i]}{RESET}"
-            elif tentativa[i] in palavra:
-                resultado += f"{amarelo}{tentativa[i]}{RESET}"
-            else:
-                resultado += tentativa[i]
+        if not venceu:
+            print(f"Que pena! A palavra era: {palavra}")
 
-        print(resultado)
+            pausar_mais()
+            limpar_tela()
 
-        pausar_mais()
-    
-        if tentativa == palavra:
-            print(f"{COR_SUCESSO}Você acertou!!!{COR_BRANCO}")
-            venceu = True
+        
+        resposta= pergunta_sim_nao("Deseja jogar novamente?")
+        
+        if resposta == "N":
             pausar()
             limpar_tela()
-            break  
-
-    if not venceu:
-        print(f"Que pena! A palavra era: {palavra}")
-
-        pausar_mais()
-        limpar_tela()
-
-    
-    resposta= pergunta_sim_nao("Deseja jogar novamente?")
-    
-    if resposta == "N":
-        pausar()
-        limpar_tela()
-        print("Obrigado por jogar!")
-        break
-    elif resposta == "S":
-        pausar()
-        limpar_tela()
-        True
-    
-    
+            print("Obrigado por jogar!")
+            break
+        elif resposta == "S":
+            pausar()
+            limpar_tela()
+            True
+        
+if __name__ == "__main__":
+    main()        
