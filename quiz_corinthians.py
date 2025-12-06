@@ -45,7 +45,7 @@ def main():
                                 design.limpar_tela()
 
                                 # -------------------- PERGUNTA 2 --------------------
-                                design.container("2) Qual o ano de fundação da Neo Química Arena?")
+                                design.container("2) Qual a data de fundação da Neo Química Arena?")
                                 design.container("A) 10 de Maio de 2014")
                                 design.container("B) 18 de Maio de 2014")
                                 design.container("C) 14 de Maio de 2014")
