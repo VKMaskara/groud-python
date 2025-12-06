@@ -228,4 +228,5 @@ def main():
             anim_erro("Opção inválida. Tente novamente.")
             # O loop 'while True' recomeça, exibindo o menu principal novamente.
 
-main() # Inicia a execução do programa chamando a função 'main'.
+if __name__ == "__main__":     
+    main() # Inicia a execução do programa chamando a função 'main'.

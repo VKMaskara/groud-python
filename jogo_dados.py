@@ -5,7 +5,7 @@ import design    #importa o módulo design para elementos visuais(Meninos)
 
 design.limpar_tela()
 
-design.titulo_secao("🎲🎲🎲JOGO DO DADOS🎲🎲🎲")  #chama a função titulo_secao do módulo design para mostrar o título do jogo
+design.titulo_secao("🎲🎲🎲JOGO DOS DADOS🎲🎲🎲")  #chama a função titulo_secao do módulo design para mostrar o título do jogo
 design.loading(design.COR_SUCESSO + "🎲🎲Iniciando o Jogo dos Dados🎲🎲", ciclos=2, tempo=0.3 )  #chama a função loading do módulo design para animação de carregamento
 
 
@@ -18,7 +18,7 @@ def dado(): #função para simular o lançamento do dado
    # """Simula o lançamento de um dado de 6 faces"""
     return random.randint(1, 6) #retorna um número aleatório entre 1 e 6
 
-def jogar(): #função principal do jogo
+def main(): #função principal do jogo
     #"""Executa o jogo principal entre dois jogadores"""
     limpar_tela() #limpa a tela antes de iniciar o jogo
     print("🎲 Bem-vindo ao Jogo do Dado! 🎲")  #bem vindos 
@@ -127,7 +127,7 @@ def tela_inicio(): #função para mostrar o menu inicial
             opcao = input("Escolha uma opção: ").strip()#pede a opção do usuário e remove espaços em branco
             
             if opcao == "1":#se opção for 1
-                jogar()#chama a função jogar
+                main()#chama a função jogar
             elif opcao == "2":#se opção for 2
                 instrucoes()#chama a função instruções
             elif opcao == "3":#se opção for 3
@@ -143,11 +143,13 @@ def tela_inicio(): #função para mostrar o menu inicial
 
 
 
-if __name__ == "__main__":#verifica se o script está sendo executado diretamente
-    tela_inicio()#chama a função tela_inicio para iniciar o jogo
-    limpar_tela()#limpa a tela
+
+  
     
 print(" https://emojisparacopiar.com/#google_vignette") #retirada dos emojis do site                 
 print("👨🏽‍💻Renato de Oliveira👨🏽‍💻")# Desenvolvedor Python
 
 print( "Fim do programa")
+
+if __name__ == "__main__":
+    main() #chama a função principal do jogo
