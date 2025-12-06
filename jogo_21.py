@@ -174,7 +174,7 @@ while True:
     if saldo <= 0:
         design.anim_erro("VOCÊ FICOU SEM DINHEIRO!!! 🤡")
         time.sleep(2)
-        sys.exit()
+        break
 
     jogar_novamente = input(COR_PERGUNTA + "\nDeseja jogar novamente? (S/N): " + RESET).lower().strip()
 
@@ -183,4 +183,4 @@ while True:
         print(COR_SUCESSO + f"VOCÊ SAIU COM R$ {saldo}. OBRIGADO POR JOGAR! 😎" + RESET)
         time.sleep(2)
         design.limpar_tela()
-        sys.exit()
+        break
