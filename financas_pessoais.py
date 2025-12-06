@@ -95,7 +95,7 @@ def main():
             gastos_mensais["transporte"] = somente_entrada_numeros("Quanto você gastou de transporte?")
             gastos_mensais["lazer"] = somente_entrada_numeros("Quanto você gastou de lazer?")
             gastos_mensais["contas"] = somente_entrada_numeros("Quanto você gastou com contas?")
-            gastos_mensais["outros"] = somente_entrada_numeros("Quanto você gastou com outras despezas?")
+            gastos_mensais["outros"] = somente_entrada_numeros("Quanto você gastou com outras despesas?")
             
             # Soma total
             gastos_mensais["total"] = (
@@ -139,7 +139,7 @@ def main():
                 container(f"Gastos com transporte: R${gastos_mensais['transporte']:.2f}".replace(".", ","))
                 container(f"Gastos com lazer: R${gastos_mensais['lazer']:.2f}".replace(".", ","))
                 container(f"Gastos com contas: R${gastos_mensais['contas']:.2f}".replace(".", ","))
-                container(f"Gastos com outras despezas: R${gastos_mensais['outros']:.2f}".replace(".", ","))
+                container(f"Gastos com outras despesas: R${gastos_mensais['outros']:.2f}".replace(".", ","))
                 container(f"Total dos gastos: R${gastos_mensais['total']:.2f}".replace(".", ","))
 
                 container("Porcentagem Por Categoria (Em relação ao salário)", cor=COR_TITULO)
@@ -147,7 +147,7 @@ def main():
                 container(f"Gastos com transporte: {percentual_gastos_mensais['transporte']:.0f}%")
                 container(f"Gastos com lazer: {percentual_gastos_mensais['lazer']:.0f}%")
                 container(f"Gastos com contas: {percentual_gastos_mensais['contas']:.0f}%")
-                container(f"Gastos com outras despezas: {percentual_gastos_mensais['outros']:.0f}%")
+                container(f"Gastos com outras despesas: {percentual_gastos_mensais['outros']:.0f}%")
                 container(f"Percentual total: {percentual_gastos_mensais['total']:.0f}%")
 
                 # Análises de situação financeira
