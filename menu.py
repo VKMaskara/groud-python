@@ -139,8 +139,8 @@ def submenu_financeiro():
             import financiamento_de_juros
             financiamento_de_juros.main()
         elif opc == '3':
-            import imposto_renda
-            imposto_renda.main()
+            import ir_simulador
+            ir_simulador.main()
         elif opc == '4':
             anim_erro('ESSE CÓDIGO AINDA NÃO FOI IMPLEMENTADO!')
             input(COR_PERGUNTA + "\nPressione ENTER para voltar ao submenu...")
