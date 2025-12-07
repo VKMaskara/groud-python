@@ -82,105 +82,109 @@ design.limpar_tela()
 # ============================================================
 # SISTEMA DE APOSTAS
 # ============================================================
+def main():
+    saldo = 500  # saldo inicial
 
-saldo = 500  # saldo inicial
 
-while True:
-
-    design.limpar_tela()
-    print(COR_TITULO + f"SALDO ATUAL: R$ {saldo}" + RESET)
-
-    # Entrada da aposta
     while True:
-        try:
-            aposta = int(input(COR_PERGUNTA + "\nQuanto deseja apostar? R$: " + RESET))
 
-            if aposta <= 0:
-                print(COR_ERRO + "A aposta deve ser maior que 0!" + RESET)
-                continue
-
-            if aposta > saldo:
-                print(COR_ERRO + "Você não tem saldo suficiente!" + RESET)
-                continue
-
-            break
-        except:
-            print(COR_ERRO + "Digite um valor válido!" + RESET)
-
-    # ============================================================
-    # INÍCIO DA RODADA
-    # ============================================================
-
-    jogador = [pegar_carta(), pegar_carta()]
-    computador = [pegar_carta(), pegar_carta()]
-
-    # TURNO DO JOGADOR
-    while True:
         design.limpar_tela()
-        print(COR_TITULO + f"SALDO: R$ {saldo} | APOSTA: R$ {aposta}" + RESET)
-        mostrar_maos(jogador, computador)
+        print(COR_TITULO + f"SALDO ATUAL: R$ {saldo}" + RESET)
 
-        # Estouros
-        if sum(jogador) > 21:
-            design.anim_erro("VOCÊ ESTOUROU!!! 🤡🤡")
-            saldo -= aposta
-            break
+        # Entrada da aposta
+        while True:
+            try:
+                aposta = int(input(COR_PERGUNTA + "\nQuanto deseja apostar? R$: " + RESET))
 
-        escolha = input(COR_PERGUNTA + "\nDeseja mais uma carta? (S/N): " + RESET).lower().strip()
+                if aposta <= 0:
+                    print(COR_ERRO + "A aposta deve ser maior que 0!" + RESET)
+                    continue
 
-        if escolha in ("s", "sim"):
-            jogador.append(pegar_carta())
-            continue
+                if aposta > saldo:
+                    print(COR_ERRO + "Você não tem saldo suficiente!" + RESET)
+                    continue
 
-        elif escolha in ("n", "nao", "não"):
-            break
+                break
+            except:
+                print(COR_ERRO + "Digite um valor válido!" + RESET)
 
-        else:
-            print(COR_INFO + "Use S para continuar ou N para parar." + RESET)
+        # ============================================================
+        # INÍCIO DA RODADA
+        # ============================================================
+
+        jogador = [pegar_carta(), pegar_carta()]
+        computador = [pegar_carta(), pegar_carta()]
+
+        # TURNO DO JOGADOR
+        while True:
+            design.limpar_tela()
+            print(COR_TITULO + f"SALDO: R$ {saldo} | APOSTA: R$ {aposta}" + RESET)
+            mostrar_maos(jogador, computador)
+
+            # Estouros
+            if sum(jogador) > 21:
+                design.anim_erro("VOCÊ ESTOUROU!!! 🤡🤡")
+                saldo -= aposta
+                break
+
+            escolha = input(COR_PERGUNTA + "\nDeseja mais uma carta? (S/N): " + RESET).lower().strip()
+
+            if escolha in ("s", "sim"):
+                jogador.append(pegar_carta())
+                continue
+
+            elif escolha in ("n", "nao", "não"):
+                break
+
+            else:
+                print(COR_INFO + "Use S para continuar ou N para parar." + RESET)
+                time.sleep(1)
+
+        # TURNO DO COMPUTADOR
+        if sum(jogador) <= 21:
+            computador = turno_do_computador(computador, sum(jogador))
+
+            design.limpar_tela()
+            mostrar_maos(jogador, computador, revelar=True)
             time.sleep(1)
 
-    # TURNO DO COMPUTADOR
-    if sum(jogador) <= 21:
-        computador = turno_do_computador(computador, sum(jogador))
+            total_j = sum(jogador)
+            total_c = sum(computador)
 
-        design.limpar_tela()
-        mostrar_maos(jogador, computador, revelar=True)
-        time.sleep(1)
+            # RESULTADOS
+            if total_c > 21:
+                design.anim_sucesso("O SISTEMA ESTOUROU — VOCÊ GANHOU! 😎")
+                saldo += aposta
 
-        total_j = sum(jogador)
-        total_c = sum(computador)
+            elif total_j > total_c:
+                design.anim_sucesso("VOCÊ GANHOU!! 😎😎")
+                saldo += aposta
 
-        # RESULTADOS
-        if total_c > 21:
-            design.anim_sucesso("O SISTEMA ESTOUROU — VOCÊ GANHOU! 😎")
-            saldo += aposta
+            elif total_j < total_c:
+                design.anim_erro("VOCÊ PERDEU!!! 🤡🤡")
+                saldo -= aposta
 
-        elif total_j > total_c:
-            design.anim_sucesso("VOCÊ GANHOU!! 😎😎")
-            saldo += aposta
+            else:
+                print(COR_INFO + "\n🤝 Empate! A aposta foi devolvida." + RESET)
+                time.sleep(2)
 
-        elif total_j < total_c:
-            design.anim_erro("VOCÊ PERDEU!!! 🤡🤡")
-            saldo -= aposta
+        # ============================================================
+        # ENCERRAMENTO OU NOVA RODADA
+        # ============================================================
 
-        else:
-            print(COR_INFO + "\n🤝 Empate! A aposta foi devolvida." + RESET)
+        if saldo <= 0:
+            design.anim_erro("VOCÊ FICOU SEM DINHEIRO!!! 🤡")
             time.sleep(2)
+            break
 
-    # ============================================================
-    # ENCERRAMENTO OU NOVA RODADA
-    # ============================================================
+        jogar_novamente = input(COR_PERGUNTA + "\nDeseja jogar novamente? (S/N): " + RESET).lower().strip()
 
-    if saldo <= 0:
-        design.anim_erro("VOCÊ FICOU SEM DINHEIRO!!! 🤡")
-        time.sleep(2)
-        break
+        if jogar_novamente not in ("s", "sim"):
+            design.limpar_tela()
+            print(COR_SUCESSO + f"VOCÊ SAIU COM R$ {saldo}. OBRIGADO POR JOGAR! 😎" + RESET)
+            time.sleep(2)
+            design.limpar_tela()
+            break
 
-    jogar_novamente = input(COR_PERGUNTA + "\nDeseja jogar novamente? (S/N): " + RESET).lower().strip()
-
-    if jogar_novamente not in ("s", "sim"):
-        design.limpar_tela()
-        print(COR_SUCESSO + f"VOCÊ SAIU COM R$ {saldo}. OBRIGADO POR JOGAR! 😎" + RESET)
-        time.sleep(2)
-        design.limpar_tela()
-        break
+if __name__ == "__main__":
+    main()
