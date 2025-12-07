@@ -2,54 +2,56 @@
                                         -- REPOSITÓRIO ATIVIDADE FINAL (Python) --
 -------------------------------------------------------COLABORADORES--------------------------------------------------
 
-Coordenadores:
-Vitor Kauê
-Glauber Almeida
+    Coordenadores:
+    Vitor Kauê
+    Glauber Almeida
+    
+    Revisores:
+    Luiz Carlos
+    Luis Henrique
+    
+    Login:
+    Diego 
+    
+    Menu:
+    Edneuza
+    
+    Design:
+    Nicolas Breno 
+    
+    Telas (Início e Fim):
+    Samara 
+    
+    Programas de Jogos:
+    Jessé: Jogo do 21
+    Anna: Termo
+    Renato: Jogo do dado
+    
+    Programas de Cálculos:
+    Gustavo Santos: Folha de pagamento
+    Gustavo Silva: Cálculo de área e volume
+    Christian: Conversor de medidas
+    Vinnícius Ribeiro: Cálculo de combustível 
+    
+    Programas de Esportes:
+    Gustavo Valim: Torneio de Skate
+    Vinícius Oliveira: Quiz do Corinthians 
+    Thiago: IMC de Atletas 
+    Vinícius de Paula: Catálogo de Basquete
+    
+    Programas Financeiros:
+    Arthur Lima: Bolsa de valores
+    Maycon: Cálculo de imposto
+    Mikaelly:  Financiamento de juros simples
+    Arthur Carvalho: ?
+    
+    Outros Programas:
+    Rodrigo: Avaliação de filmes 
+    Juliana: Verificador de senhas 
+    Kaique: Organizador de tarefas
+    Camilly: Playlist musical
 
-Revisores:
-Luiz Carlos
-Luis Henrique
 
-Login:
-Diego (Quase Finalizado)
-
-Menu:
-Edneuza
-
-Design:
-Nicolas Breno (Finalizado)
-
-Telas (Início e Fim):
-Samara (Tela de inicio Finalizada, Tela de encerramento em andamento)
-
-Programas de Jogos:
-Jessé: Jogo do 21
-Anna: Termo
-Renato: Jogo do dado
-
-Programas de Cálculos:
-Gustavo Santos: Folha de pagamento
-Gustavo Silva: Cálculo de área e volume
-Christian: Conversor de medidas
-Vinnícius Ribeiro: Cálculo de combustível (Finalizado)
-
-Programas de Esportes:
-Gustavo Valim: Torneio de Skate
-Vinícius Oliveira: Quiz do Corinthians (Finalizado)
-Thiago: IMC de Atletas (Finalizado)
-Vinícius de Paula: Catálogo de Basquete
-
-Programas Financeiros:
-Arthur Lima: Bolsa de valores
-Maycon: Cálculo de imposto
-Mikaelly:  Financiamento de juros simples
-Arthur Carvalho: ?
-
-Outros Programas:
-Rodrigo: Avaliação de filmes (Finalizado)
-Juliana: Verificador de senhas (Finalizado)
-Kaique: Organizador de tarefas
-Camilly: Playlist musical
 -----------------------------------------------------------------------------------------------------------------------
                                 Critérios Avaliativos Obrigatórios em todos os programas:
 -----------------------------------------------------------------------------------------------------------------------
